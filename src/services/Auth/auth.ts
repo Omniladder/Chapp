@@ -27,7 +27,7 @@ export async function addUser(req: Request){
    if(!schemaTest.success) {
         console.error("Failed Schema Parsing \n");
         console.error(schemaTest.error);
-        return {success: false, message: "Failed to Parse schema", error: schemaTest.error, code: 1001};
+        return {success: false, message: "Invalid Input. Please Try Again.", error: schemaTest.error, code: 1001};
    }
 
     console.log("Successfully Parsed Incoming Request");
@@ -38,7 +38,7 @@ export async function addUser(req: Request){
     
     if(dupUser){
         console.log("Username Already In Use");
-        return {success: false, message: "Username Already In Use", code: 1003};
+        return {success: false, message: "Username Already In Use. Please try different Username.", code: 1002};
     }
 
 
@@ -51,7 +51,7 @@ export async function addUser(req: Request){
         console.log("Passwords Line up");
     }else{
         console.error("Hashing Failed Hash & Password Dont align");
-        return {success: false, message: "Hashing Failed", code: 1004};
+        return {success: false, message: "Hashing Failed. Please Retry.", code: 1003};
     }
 
     //Save User Data

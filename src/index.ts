@@ -30,7 +30,10 @@ app.listen(port, () => {
 app.post('/api/signup', async (req: Request, res: Response) => {
     console.log("Received Sign Up");
     let output = await addUser(req);
-    res.send(output);
+    if(!output.success)
+        return res.status(400).json(output);
+    else
+        return res.status(201).json(output);
 });
 
 
