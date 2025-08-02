@@ -1,11 +1,20 @@
 import express, { Request, response, Response } from 'express';
-import { addUser } from "./services/Auth/auth";
+import { addUser, login } from "./services/Auth/auth";
 import sequelize from './dbFiles/db';
+import session from 'express-session';
 
 const app = express();
 const port = 3000;
 
 app.use(express.json());
+app.use(session({
+    secret: process.env.SECRET_SESSION_KEY!,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {secure: false}
+}));
+
+
 testServer(); //Simply Checks Server Connections
 //app.use(express.urlencoded({ extended: true }));
 
@@ -36,6 +45,16 @@ app.post('/api/signup', async (req: Request, res: Response) => {
         return res.status(201).json(output);
 });
 
+app.post('/api/login', async (req: Request, res: Response) => {
+    console.log("Received Login");
+    let output = await login(req);
+    if(!output.success){
+        return res.status(400).json(output);
+    }
+    else{
+       return res.status(201).json(output);
+    }
+});
 
 
 

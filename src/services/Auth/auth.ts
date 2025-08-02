@@ -1,11 +1,13 @@
 import { Request } from "express";
-import signupSchema from "./signupSchema";
+
 import { compareSync, genSaltSync, hashSync } from "bcrypt-ts";
 
+// Request Validation Schemas
+import signupSchema from "./signupSchema";
+import loginSchema from "./loginSchema"
+
 // DB ORM Object
-import sequelize from "../../dbFiles/db";
 import { User } from "../../models/userSchema";
-import { success } from "zod";
 
 
 function hashPassword(password: string){
@@ -27,7 +29,7 @@ export async function addUser(req: Request){
    if(!schemaTest.success) {
         console.error("Failed Schema Parsing \n");
         console.error(schemaTest.error);
-        return {success: false, message: "Invalid Input. Please Try Again.", error: schemaTest.error, code: 1001};
+        return {success: false, message: "Invalid Input. Make sure username & Password are at least 5 characters", error: schemaTest.error, code: 1001};
    }
 
     console.log("Successfully Parsed Incoming Request");
@@ -70,9 +72,31 @@ export async function addUser(req: Request){
 }
 
 
-export function login(req: Request){
+export async function login(req: Request){
     console.log("Received a Request");
-    console.log(req.body);
+
+    const schemaTest = loginSchema.safeParse(req.body);
+
+    if(!schemaTest.success){
+        return {success: false, message: "Parsing Failed Please Retry", code: 1003};
+    }
+
+    const userData = schemaTest.data;
+
+    const queriedUser = await User.findOne({ where: {"username": userData.username}}); 
+
+    if(!queriedUser){
+        return {success: false, message: "Invalid Username", code: 1001};
+    }
+
+
+    if(compareSync(userData.password, queriedUser.password)){
+        req.session.username = userData.username;
+        return {success: true, message: "Logged In :)", code: 1000}
+    }
+    else {
+        return {success: false, message: "Invalid Password", code: 1002}
+    }
 }
 
 
