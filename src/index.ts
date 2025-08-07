@@ -82,5 +82,15 @@ app.delete("/api/logout", async (req: Request, res: Response) => {
     }
 });
 
-
+app.get("/api/isExpired", (req, res) => {
+    console.log("Session Check Requested")
+    if (!req.session.userID) {
+        console.log("Not Logged in")
+        return res.status(401).send('Not logged in');
+    }
+    else {
+        console.log("Still Logged in")
+        return res.status(200).send('Still Logged in');
+    }
+});
 
