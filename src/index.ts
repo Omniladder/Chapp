@@ -73,7 +73,7 @@ app.delete('/api/delete', async (req: Request, res: Response) => {
 
 app.delete("/api/logout", async (req: Request, res: Response) => {
     console.log("Received Logout Request");
-    let output = await deleteAccount(req);
+    let output = await logout(req);
     if(!output.success){
         return res.status(400).json(output);
     }

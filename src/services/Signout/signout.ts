@@ -14,6 +14,7 @@ export async function deleteAccount(req: Request) {
     }
     
     // Delete Account from Database 
+    // TODO: Make sure all data relating to user is deleted ie. friends etc
     try{
         await User.destroy({ where: { id: userID } });
         console.log("Deleted User. ID=", userID);
