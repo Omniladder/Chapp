@@ -1,7 +1,11 @@
 import express, { Request, response, Response } from 'express';
+
 import { addUser, login } from "./services/Auth/auth";
+import { deleteAccount, logout } from "./services/Signout/signout"
+
 import sequelize from './dbFiles/db';
 import session from 'express-session';
+import { constrainedMemory } from 'node:process';
 
 const app = express();
 const port = 3000;
@@ -53,6 +57,28 @@ app.post('/api/login', async (req: Request, res: Response) => {
     }
     else{
        return res.status(201).json(output);
+    }
+});
+
+app.delete('/api/delete', async (req: Request, res: Response) => {
+    console.log("Received Account Deletion");
+    let output = await deleteAccount(req);
+    if(!output.success){
+        return res.status(400).json(output);
+    }
+    else{
+       return res.status(201).json(output);
+    }
+});
+
+app.delete("/api/logout", async (req: Request, res: Response) => {
+    console.log("Received Logout Request");
+    let output = await deleteAccount(req);
+    if(!output.success){
+        return res.status(400).json(output);
+    }
+    else{
+        return res.status(201).json(output);
     }
 });
 

@@ -91,7 +91,7 @@ export async function login(req: Request){
 
 
     if(compareSync(userData.password, queriedUser.password)){
-        req.session.username = userData.username;
+        req.session.userID = queriedUser.id;
         return {success: true, message: "Logged In :)", code: 1000}
     }
     else {
