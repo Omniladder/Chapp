@@ -2,6 +2,7 @@ import express, { Request, response, Response } from 'express';
 
 import { addUser, login } from "./services/Auth/auth";
 import { deleteAccount, logout } from "./services/Signout/signout"
+import { queryPeople } from "./services/FriendFunctions/friendFunctions"
 
 import sequelize from './dbFiles/db';
 import session from 'express-session';
@@ -93,4 +94,18 @@ app.get("/api/isExpired", (req, res) => {
         return res.status(200).send('Still Logged in');
     }
 });
+
+app.post("/api/findFriends", async (req, res) => {
+    console.log("Searching For New Friends");
+    let output = await queryPeople(req);
+    if(output.success){
+        console.log("Successsfully Queried");
+        return res.status(200).json(output);
+    }
+    else{
+        console.error("Failed to Query Friends");
+        return res.status(401).json(output);
+    }
+});
+
 
