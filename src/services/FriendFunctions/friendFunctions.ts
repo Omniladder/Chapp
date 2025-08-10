@@ -9,7 +9,23 @@ import addFriendSchema from './addFriendSchema';
 import { User } from "../../models/userSchema";
 import { Friend } from '../../models/friendSchema';
 import session from 'express-session';
+import { number } from 'zod';
 
+
+async function getFriends(userID: number): Promise<number[]>{
+   const friends = await Friend.findAll({
+       where:{
+           friendID1: userID 
+       },
+       attributes: ['friendID2']
+   })
+
+    let friendIDs : number[] = [];
+    for (let friend of friends){
+        friendIDs.push(friend.friendID2);
+    }
+    return friendIDs
+}
 
 //TODO: Add Similarity Search
 //TODO: Remove People your already friends with
@@ -23,11 +39,16 @@ export async function queryPeople(req: Request){
 
     let queryData = schemaTest.data;
     let queriedUsers = [];
+
+    let friendList = await getFriends(req.session.userID!);
+    friendList.push(req.session.userID!)
+
     try{
+
         queriedUsers = await User.findAll({
             attributes: ['id', 'username', 'fname', 'lname'],
             where: {
-                id: { [Op.ne]: req.session.userID}
+                id: { [Op.notIn]: friendList}
             },
             order: [['username', 'ASC']],
             limit: queryData.numberOfPeople
