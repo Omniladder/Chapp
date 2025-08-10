@@ -1,10 +1,14 @@
 import express, { Request, response, Response } from 'express';
+import { Op } from 'sequelize';
 
 import querySchema from './querySchema';
+import addFriendSchema from './addFriendSchema';
 
 
 // DB ORM Object
 import { User } from "../../models/userSchema";
+import { Friend } from '../../models/friendSchema';
+import session from 'express-session';
 
 
 //TODO: Add Similarity Search
@@ -22,6 +26,9 @@ export async function queryPeople(req: Request){
     try{
         queriedUsers = await User.findAll({
             attributes: ['id', 'username', 'fname', 'lname'],
+            where: {
+                id: { [Op.ne]: req.session.userID}
+            },
             order: [['username', 'ASC']],
             limit: queryData.numberOfPeople
         });
@@ -36,12 +43,41 @@ export async function queryPeople(req: Request){
 
 
     //Remove IDs once no longer needed
+    /*
     let cleanUsers = queriedUsers.map(user => {
       const { id, ...rest } = user.get({ plain: true });
-      return {rest, friendOfFriend: true }; // everything except id
+      return {...rest, friendOfFriend: true }; // everything except id
     });
+    */
 
     
-    return {success: true, data: cleanUsers, message: 'Successful Queried', code: 1000};
+    return {success: true, data: queriedUsers, message: 'Successful Queried', code: 1000};
 }
+
+export async function addFriend(req: Request){
+
+    console.log("Body: ", req.body)
+    const schemaTest = addFriendSchema.safeParse(req.body);
+    if(!schemaTest.success){
+        console.error("Failed to Parse Add Friend Schema");
+        return {success: false, message: 'Failed to Parse Schema', code: 1001};
+    }
+
+    
+    let connection = Friend.create({
+       'friendID1': req.session.userID,
+       'friendID2': schemaTest.data.friendID,
+    });
+
+    await Friend.create({
+       'friendID1': schemaTest.data.friendID,
+       'friendID2': req.session.userID,
+    });
+    await connection;
+
+
+    return {success: true, message: 'Successfully Added Friend', code: 1000};
+}
+
+
 
