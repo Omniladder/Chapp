@@ -1,4 +1,5 @@
 import express, { Request, response, Response } from 'express';
+import sequelize from '../../dbFiles/db';
 import { Op } from 'sequelize';
 
 import querySchema from './querySchema';
@@ -28,7 +29,6 @@ async function getFriends(userID: number): Promise<number[]>{
 }
 
 //TODO: Add Similarity Search
-//TODO: Remove People your already friends with
 export async function queryPeople(req: Request){
     
     const schemaTest = querySchema.safeParse(req.body);
@@ -44,15 +44,26 @@ export async function queryPeople(req: Request){
     friendList.push(req.session.userID!)
 
     try{
-
-        queriedUsers = await User.findAll({
-            attributes: ['id', 'username', 'fname', 'lname'],
-            where: {
-                id: { [Op.notIn]: friendList}
-            },
-            order: [['username', 'ASC']],
-            limit: queryData.numberOfPeople
+        if(!queryData.hasSearchTerm)
+            queriedUsers = await User.findAll({
+             attributes: ['id', 'username', 'fname', 'lname'],
+             where: {
+                 id: { [Op.notIn]: friendList}
+             },
+             order: [['username', 'ASC']],
+             limit: queryData.numberOfPeople
         });
+        else {
+            queriedUsers = await User.findAll({
+                attributes: ['id', 'username', 'fname', 'lname'],
+                where: {
+                    id: { [Op.notIn]: friendList}
+                },
+                order: [[sequelize.literal(`similarity(username, '${queryData.searchTerm}')`), 'DESC']],
+                limit: queryData.numberOfPeople
+            });
+
+        }
     }
     catch(err: any) {
         console.error("Sequelize Query Failed::");
@@ -62,14 +73,6 @@ export async function queryPeople(req: Request){
         return {success: false, data: null, message: "Failed to query Data", code: 1002};
     }
 
-
-    //Remove IDs once no longer needed
-    /*
-    let cleanUsers = queriedUsers.map(user => {
-      const { id, ...rest } = user.get({ plain: true });
-      return {...rest, friendOfFriend: true }; // everything except id
-    });
-    */
 
     
     return {success: true, data: queriedUsers, message: 'Successful Queried', code: 1000};
