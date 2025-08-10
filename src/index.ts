@@ -2,7 +2,7 @@ import express, { Request, response, Response } from 'express';
 
 import { addUser, login } from "./services/Auth/auth";
 import { deleteAccount, logout } from "./services/Signout/signout"
-import { queryPeople, addFriend } from "./services/FriendFunctions/friendFunctions"
+import { queryPeople, addFriend, getFriends } from "./services/FriendFunctions/friendFunctions"
 
 import sequelize from './dbFiles/db';
 import session from 'express-session';
@@ -121,4 +121,15 @@ app.post("/api/addFriend", async (req, res) => {
     }
 });
 
-
+app.get("/api/getFriends", async (req, res) => {
+    console.log("Getting Friends");
+    let output = await getFriends(req);
+    if(output.success){
+        console.log("Successsfully Found Friend");
+        return res.status(200).json(output);
+    }
+    else{
+        console.error("Failed to Find Friends");
+        return res.status(401).json(output);
+    }
+})

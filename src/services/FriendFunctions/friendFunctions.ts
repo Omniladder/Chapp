@@ -10,15 +10,22 @@ import addFriendSchema from './addFriendSchema';
 import { User } from "../../models/userSchema";
 import { Friend } from '../../models/friendSchema';
 import session from 'express-session';
-import { number } from 'zod';
+import { number, success } from 'zod';
 
+type user = {
+    userID: number;
+    username: string;
+    fname: string;
+    lname: string;
+}
 
-async function getFriends(userID: number): Promise<number[]>{
+async function getFriendsID(userID: number): Promise<number[]>{
    const friends = await Friend.findAll({
-       where:{
-           friendID1: userID 
-       },
-       attributes: ['friendID2']
+        where:{
+            friendID1: userID 
+        },
+        attributes: ['friendID2'],
+        order: [['score', 'ASC']]
    })
 
     let friendIDs : number[] = [];
@@ -40,7 +47,7 @@ export async function queryPeople(req: Request){
     let queryData = schemaTest.data;
     let queriedUsers = [];
 
-    let friendList = await getFriends(req.session.userID!);
+    let friendList = await getFriendsID(req.session.userID!);
     friendList.push(req.session.userID!)
 
     try{
@@ -103,5 +110,21 @@ export async function addFriend(req: Request){
     return {success: true, message: 'Successfully Added Friend', code: 1000};
 }
 
+export async function getFriends(req: any): Promise<any>{
+
+    console.log("Get Friends Called");
+    let friendIDs = await getFriendsID(req.session.userID);
+    let listOfFriends = await User.findAll({
+             attributes: ['id', 'username', 'fname', 'lname'],
+             where: {
+                 id:{ [Op.in]: friendIDs}
+             },
+            order:[[sequelize.literal(`array_position(ARRAY[${friendIDs.join(',')}]::int[], "User"."id")`), 'ASC']]
+        });
+
+        console.log("Friends Found: ", listOfFriends);
+
+    return {success: true, data: listOfFriends, message: "RetrivedFriends", code: 1000}
+}
 
 
