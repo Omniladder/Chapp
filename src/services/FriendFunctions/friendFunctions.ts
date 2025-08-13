@@ -25,7 +25,7 @@ async function getFriendsID(userID: number): Promise<number[]>{
             friendID1: userID 
         },
         attributes: ['friendID2'],
-        order: [['score', 'ASC']]
+        order: [['score', 'DESC']]
    })
 
     let friendIDs : number[] = [];
@@ -57,7 +57,7 @@ export async function queryPeople(req: Request){
              where: {
                  id: { [Op.notIn]: friendList}
              },
-             order: [['username', 'ASC']],
+             order: [['username', 'DESC']],
              limit: queryData.numberOfPeople
         });
         else {

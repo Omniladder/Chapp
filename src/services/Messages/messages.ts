@@ -72,7 +72,7 @@ export async function getMessages(req: any){
             ]
         },
         attributes: ['message', 'senderID', 'receiverID'],
-        order: [['createdAt', 'ASC']]
+        order: [['createdAt', 'DESC']]
     });
 
 
