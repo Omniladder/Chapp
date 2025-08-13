@@ -53,13 +53,13 @@ export async function queryPeople(req: Request){
     try{
         if(!queryData.hasSearchTerm)
             queriedUsers = await User.findAll({
-             attributes: ['id', 'username', 'fname', 'lname'],
-             where: {
-                 id: { [Op.notIn]: friendList}
-             },
-             order: [['username', 'DESC']],
-             limit: queryData.numberOfPeople
-        });
+                attributes: ['id', 'username', 'fname', 'lname'],
+                where:  {
+                    id:    { [Op.notIn]: friendList}
+                },
+                order: [['username', 'DESC']],
+                limit: queryData.numberOfPeople
+            });
         else {
             queriedUsers = await User.findAll({
                 attributes: ['id', 'username', 'fname', 'lname'],
@@ -113,7 +113,20 @@ export async function addFriend(req: Request){
 export async function getFriends(req: any): Promise<any>{
 
     console.log("Get Friends Called");
-    let friendIDs = await getFriendsID(req.session.userID);
+    const friends = await Friend.findAll({
+        where:{
+            friendID1: req.session.userID
+        },
+        attributes: ['friendID2'],
+        order: [['score', 'DESC']]
+    })
+
+    let friendIDs : number[] = [];
+    for (let friend of friends){
+        friendIDs.push(friend.friendID2);
+    }
+
+
     let listOfFriends = await User.findAll({
              attributes: ['id', 'username', 'fname', 'lname'],
              where: {

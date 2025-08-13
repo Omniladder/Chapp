@@ -7,7 +7,7 @@ export class Friend extends Model{
     public friendID1!: number;
     public friendID2!: number;
     public score!: number;
-    public lastChat!: Date;
+    public missedMessages!: number;
 }
 
 console.log("Before Init");
@@ -32,15 +32,19 @@ Friend.init({
         type: DataTypes.INTEGER,
         allowNull: false,
         defaultValue: 0
+    },
+    missedMessages: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 0
     }
-    
 }
 ,{
     sequelize,
     modelName: 'Friend',
     tableName: 'friends',
     timestamps: false,
-    indexes: [{unique: true, fields: ['friendID1', 'friendID2']}],
+    indexes: [{unique: true, fields: ['friendID1', 'friendID2', 'missedMessages']}],
 });
 
 console.log("Activated Friend Schema");

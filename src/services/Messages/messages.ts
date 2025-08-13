@@ -17,7 +17,6 @@ export async function sendMessage(req: any): Promise<any> {
         return {success: false, message: "Failed to Parse Schema", code: 1001};
     }
 
-    console.log
     let userData = schemaTest.data;
 
     try{
@@ -35,13 +34,14 @@ export async function sendMessage(req: any): Promise<any> {
             throw err; // or res.status(400).json({ error: err?.parent?.detail || err.message });
         }
 
-    await Friend.increment('score', {
-        by: 1,
-        where: {
+    await Friend.increment(
+        { score: 1, missedMessages: 1 },
+        {where: {
             friendID1: req.session.userID,
             friendID2: userData.receiverID
         }
-    });
+    }
+    );
 
     await Friend.increment('score', {
         by: 1,
@@ -74,6 +74,16 @@ export async function getMessages(req: any){
         attributes: ['message', 'senderID', 'receiverID'],
         order: [['createdAt', 'DESC']]
     });
+
+    await Friend.update(
+        {'missedMessages': 0},
+        {
+            where: {
+                friendID1: req.session.userID,
+                friendID2: schemaTest.data.receiverID
+            }
+        }
+    );
 
 
     return {success: true, data: messages, message: "Received Message", code: 1000};
