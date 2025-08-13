@@ -3,6 +3,7 @@ import express, { Request, response, Response } from 'express';
 import { addUser, login } from "./services/Auth/auth";
 import { deleteAccount, logout } from "./services/Signout/signout"
 import { queryPeople, addFriend, getFriends } from "./services/FriendFunctions/friendFunctions"
+import { sendMessage, getMessages } from './services/Messages/messages'
 
 import sequelize from './dbFiles/db';
 import session from 'express-session';
@@ -133,3 +134,34 @@ app.get("/api/getFriends", async (req, res) => {
         return res.status(401).json(output);
     }
 })
+
+app.post("/api/sendMessage", async (req, res) => {
+    console.log("Sending Message");
+    let output = await sendMessage(req);
+    if(output.success){
+        console.log("Successsfully Sent Message");
+        return res.status(200).json(output);
+    }
+    else{
+        console.error("Failed to Send Message");
+        return res.status(401).json(output);
+    }
+
+})
+
+app.post("/api/getMessages", async (req, res) => {
+    console.log("Getting Message");
+    let output = await getMessages(req);
+    if(output.success){
+        console.log("Successsfully Got Messages");
+        return res.status(200).json(output);
+    }
+    else{
+        console.error("Failed to Get Messages");
+        return res.status(401).json(output);
+    }
+})
+
+
+
+
