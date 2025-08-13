@@ -2,7 +2,7 @@ import session from 'express-session';
 import { Op } from 'sequelize';
 
 import { Conversation } from "../../models/conversationSchema";
-import { Friend } from '../../models/friendSchema';
+import { Friend, User} from '../../models';
 
 import sendMessageSchema from './sendMessageSchema';
 import getMessageSchema from './getMessageSchema'
@@ -37,17 +37,18 @@ export async function sendMessage(req: any): Promise<any> {
     await Friend.increment(
         { score: 1, missedMessages: 1 },
         {where: {
-            friendID1: req.session.userID,
-            friendID2: userData.receiverID
+            friendID1: userData.receiverID,
+            friendID2: req.session.userID
         }
     }
     );
+    console.log("incremented missed messages");
 
     await Friend.increment('score', {
         by: 1,
         where: {
-            friendID1: userData.receiverID,
-            friendID2: req.session.userID
+            friendID1: req.session.userID,
+            friendID2: userData.receiverID
         }
     });
 
@@ -84,6 +85,7 @@ export async function getMessages(req: any){
             }
         }
     );
+    console.log("Reset Missed Messages");
 
 
     return {success: true, data: messages, message: "Received Message", code: 1000};

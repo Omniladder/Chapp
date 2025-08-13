@@ -113,29 +113,18 @@ export async function addFriend(req: Request){
 export async function getFriends(req: any): Promise<any>{
 
     console.log("Get Friends Called");
-    const friends = await Friend.findAll({
+    const listOfFriends = await Friend.findAll({
         where:{
             friendID1: req.session.userID
         },
-        attributes: ['friendID2'],
+        include: [{
+            model: User,
+            as: 'user2',
+            attributes: ['id', 'username', 'fname', 'lname']
+        }],
+        attributes: ['missedMessages'],
         order: [['score', 'DESC']]
     })
-
-    let friendIDs : number[] = [];
-    for (let friend of friends){
-        friendIDs.push(friend.friendID2);
-    }
-
-
-    let listOfFriends = await User.findAll({
-             attributes: ['id', 'username', 'fname', 'lname'],
-             where: {
-                 id:{ [Op.in]: friendIDs}
-             },
-            order:[[sequelize.literal(`array_position(ARRAY[${friendIDs.join(',')}]::int[], "User"."id")`), 'ASC']]
-        });
-
-        console.log("Friends Found: ", listOfFriends);
 
     return {success: true, data: listOfFriends, message: "RetrivedFriends", code: 1000}
 }
