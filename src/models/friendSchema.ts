@@ -8,6 +8,9 @@ export class Friend extends Model{
     public friendID2!: number;
     public score!: number;
     public missedMessages!: number;
+    public streak!: number;
+    public unlockStreakDate!: Date;
+    public endStreakDate!: Date;
 }
 
 console.log("Before Init");
@@ -37,6 +40,21 @@ Friend.init({
         type: DataTypes.INTEGER,
         allowNull: false,
         defaultValue: 0
+    },
+    streak: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 0
+    },
+    unlockStreakDate: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: new Date('1900-01-01')
+    },
+    endStreakDate: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: new Date('1900-01-01')
     }
 }
 ,{

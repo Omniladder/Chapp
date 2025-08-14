@@ -112,6 +112,18 @@ export async function addFriend(req: Request){
 
 export async function getFriends(req: any): Promise<any>{
 
+    let currentDate = new Date();
+    await Friend.update({
+        streak: 0
+    }, {
+        where: {
+            [Op.or]: [
+                {friendID1: req.session.userID, endStreakDate: { [Op.lt]: currentDate }},
+                {friendID2: req.session.userID, endStreakDate: { [Op.lt]: currentDate }}
+            ]
+        }
+    })
+
     console.log("Get Friends Called");
     const listOfFriends = await Friend.findAll({
         where:{
@@ -122,9 +134,10 @@ export async function getFriends(req: any): Promise<any>{
             as: 'user2',
             attributes: ['id', 'username', 'fname', 'lname']
         }],
-        attributes: ['missedMessages'],
+        attributes: ['missedMessages', 'streak'],
         order: [['score', 'DESC']]
     })
+
 
     return {success: true, data: listOfFriends, message: "RetrivedFriends", code: 1000}
 }

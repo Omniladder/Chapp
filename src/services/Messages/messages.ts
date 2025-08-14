@@ -1,5 +1,5 @@
 import session from 'express-session';
-import { Op } from 'sequelize';
+import { Op, where } from 'sequelize';
 
 import { Conversation } from "../../models/conversationSchema";
 import { Friend, User} from '../../models';
@@ -42,7 +42,6 @@ export async function sendMessage(req: any): Promise<any> {
         }
     }
     );
-    console.log("incremented missed messages");
 
     await Friend.increment('score', {
         by: 1,
@@ -52,7 +51,34 @@ export async function sendMessage(req: any): Promise<any> {
         }
     });
 
+    let friendship = await Friend.findOne({
+        where: {
+            friendID1: req.session.userID,
+            friendID2: userData.receiverID
+        },
+    });
 
+    if(friendship!.unlockStreakDate < new Date()){
+
+        let newUnlock = new Date();
+        newUnlock.setHours(newUnlock.getHours() + 16);
+
+        let endUnlock = new Date();
+        endUnlock.setHours(endUnlock.getHours() + 42);
+
+        await Friend.update({
+            unlockStreakDate: newUnlock,
+            endStreakDate: endUnlock,
+            streak: friendship!.streak + 1
+        }, {
+            where: {
+            [Op.or]: [
+                {friendID1: req.session.userID, friendID2: userData.receiverID},
+                {friendID1: userData.receiverID, friendID2: req.session.userID}
+            ]
+            }
+        })
+    }
     return {success: true, message: "Received Message", code: 1000};
 }
 
