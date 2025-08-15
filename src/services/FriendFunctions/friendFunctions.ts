@@ -23,6 +23,7 @@ type user = {
 async function calculateAchievements(userID: number): Promise<void>{
  
     // Sets all Friends to 0
+    console.log("Clearing Friend Achievements");
     await Friend.update(
         { isFoF: false, isRival: false, isBest: false, isMutualBest: false, isTop: false },
         {
@@ -34,6 +35,7 @@ async function calculateAchievements(userID: number): Promise<void>{
 
    
     //Top Friend Calculation ie. Top 5 Friends
+    console.log("Calculating Top 5 Friends");
     let topFriends = await Friend.findAll({
         where: {
             friendID1: userID
@@ -58,6 +60,7 @@ async function calculateAchievements(userID: number): Promise<void>{
     let bestFriendID = topFriends[0].friendID2;
 
     if(bestFriendID){
+        console.log("Checking and Updating for Mutual Bestie");
         let mutualBest = await Friend.findOne({
             where: {
                 friendID1: bestFriendID,
@@ -74,7 +77,6 @@ async function calculateAchievements(userID: number): Promise<void>{
                 friendID2: bestFriendID
             }
         });
-    }
     //Rival Calculation Your Best Friend is My Best Friend
     let rivals = await Friend.findAll({
         where: {
@@ -94,8 +96,10 @@ async function calculateAchievements(userID: number): Promise<void>{
         }
     )
     }
+    }
 
     //Friend of Friend Calculation. We share a Friend
+    console.log("Setting Friend of Friends");
     let friendIDs = await getFriendsID(userID);
     let friendOfFriendsIDs = await Friend.findAll({
         where: {
@@ -210,7 +214,12 @@ export async function addFriend(req: Request){
 
 export async function getFriends(req: any): Promise<any>{
 
-   calculateAchievements(req.session.userID);
+    if(!req.session?.userID){
+        console.log("User ID Doesn't Exist");
+        return {success: false, data: null, message: "No User ID Found", code: 1001}
+    }
+
+   await calculateAchievements(req.session.userID);
 
     let currentDate = new Date();
     await Friend.update({
@@ -234,7 +243,7 @@ export async function getFriends(req: any): Promise<any>{
             as: 'user2',
             attributes: ['id', 'username', 'fname', 'lname']
         }],
-        attributes: ['missedMessages', 'streak'],
+        attributes: ['missedMessages', 'streak', 'isFoF', 'isRival', 'isTop', 'isBest', 'isMutualBest'],
         order: [['score', 'DESC']]
     })
 
