@@ -11,6 +11,11 @@ export class Friend extends Model{
     public streak!: number;
     public unlockStreakDate!: Date;
     public endStreakDate!: Date;
+    public isFoF!: boolean;
+    public isRival!: boolean;
+    public isTop!: boolean;
+    public isBest!: boolean;
+    public isMutualBest!: boolean;
 }
 
 console.log("Before Init");
@@ -55,7 +60,32 @@ Friend.init({
         type: DataTypes.DATE,
         allowNull: false,
         defaultValue: new Date('1900-01-01')
-    }
+    },
+    isFoF: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false
+    },
+    isRival: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false
+    },
+    isTop: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false
+    },
+    isBest: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false
+    },
+    isMutualBest: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false
+    },
 }
 ,{
     sequelize,

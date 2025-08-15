@@ -19,6 +19,103 @@ type user = {
     lname: string;
 }
 
+
+async function calculateAchievements(userID: number): Promise<void>{
+ 
+    // Sets all Friends to 0
+    await Friend.update(
+        { isFoF: false, isRival: false, isBest: false, isMutualBest: false, isTop: false },
+        {
+            where: {
+                friendID1: userID
+            }
+        }
+    )
+
+   
+    //Top Friend Calculation ie. Top 5 Friends
+    let topFriends = await Friend.findAll({
+        where: {
+            friendID1: userID
+        },
+        attributes: ['friendID2'],
+        order: [['score', 'DESC']],
+        limit: 5
+    });
+
+    await Friend.update(
+        {isTop: true},
+        {
+        where: {
+            friendID1: userID,
+            friendID2: {[Op.in]:  topFriends.map(r => r.friendID2)},
+            score: {[Op.gte]: 3}
+        }
+    })
+    
+    //Best Friend Calculation ie. You are my Highest Score Friend
+    //Mutual Best Friend Calculation ie. You are my best Friend I am yours
+    let bestFriendID = topFriends[0].friendID2;
+
+    if(bestFriendID){
+        let mutualBest = await Friend.findOne({
+            where: {
+                friendID1: bestFriendID,
+                friendID2: userID,
+                isBest: true
+            }
+        });
+
+        await Friend.update(
+            {isBest: true, isMutualBest: !!mutualBest},
+            {
+            where: {
+                friendID1: userID,
+                friendID2: bestFriendID
+            }
+        });
+    }
+    //Rival Calculation Your Best Friend is My Best Friend
+    let rivals = await Friend.findAll({
+        where: {
+            friendID2: bestFriendID,
+            isBest: true
+        },
+        attributes: ['friendID1']
+    })
+    if(rivals){
+    await Friend.update(
+        {isRival: true},
+        {
+            where: {
+                friendID1: userID,
+                friendID2: {[Op.in]: rivals.map( r => r.friendID1 )}
+            }
+        }
+    )
+    }
+
+    //Friend of Friend Calculation. We share a Friend
+    let friendIDs = await getFriendsID(userID);
+    let friendOfFriendsIDs = await Friend.findAll({
+        where: {
+            friendID1: {[Op.in]: friendIDs}
+        },
+        attributes: ['friendID2']
+    });
+
+    await Friend.update(
+        {isFoF: true},
+        {
+            where: {
+                friendID1: userID,
+                friendID2: {[Op.in]: friendOfFriendsIDs.map(r => r.friendID2)}
+            }
+        }
+    );
+}
+
+
 async function getFriendsID(userID: number): Promise<number[]>{
    const friends = await Friend.findAll({
         where:{
@@ -34,6 +131,7 @@ async function getFriendsID(userID: number): Promise<number[]>{
     }
     return friendIDs
 }
+
 
 //TODO: Add Similarity Search
 export async function queryPeople(req: Request){
@@ -111,6 +209,8 @@ export async function addFriend(req: Request){
 }
 
 export async function getFriends(req: any): Promise<any>{
+
+   calculateAchievements(req.session.userID);
 
     let currentDate = new Date();
     await Friend.update({
