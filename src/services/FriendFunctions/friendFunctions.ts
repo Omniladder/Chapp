@@ -152,6 +152,13 @@ export async function queryPeople(req: Request){
     let friendList = await getFriendsID(req.session.userID!);
     friendList.push(req.session.userID!)
 
+    let friendsOfFriendsList = await Friend.findAll({
+        attributes: ['friendID2'],
+        where: {
+            friendID1:{[Op.in]: friendList}
+        }
+    });
+
     try{
         if(!queryData.hasSearchTerm)
             queriedUsers = await User.findAll({
@@ -182,9 +189,15 @@ export async function queryPeople(req: Request){
         return {success: false, data: null, message: "Failed to query Data", code: 1002};
     }
 
+    const fofSet = new Set(friendsOfFriendsList.map(f => f.friendID2));
+    
+    const users = queriedUsers.map(u => ({
+      ...u.get({ plain: true }),
+      isFoF: fofSet.has(u.id)
+    }));
 
     
-    return {success: true, data: queriedUsers, message: 'Successful Queried', code: 1000};
+    return {success: true, data: users, message: 'Successful Queried', code: 1000};
 }
 
 export async function addFriend(req: Request){
