@@ -45,6 +45,8 @@ async function calculateAchievements(userID: number): Promise<void>{
         limit: 5
     });
 
+    if(topFriends.length != 0){ //If You have friends lol.
+
     await Friend.update(
         {isTop: true},
         {
@@ -117,6 +119,7 @@ async function calculateAchievements(userID: number): Promise<void>{
             }
         }
     );
+    }
 }
 
 
