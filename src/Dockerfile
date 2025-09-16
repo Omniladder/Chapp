@@ -1,4 +1,4 @@
-FROM node:24
+FROM node:24 AS backend-server
 
 WORKDIR /app
 
@@ -14,9 +14,11 @@ COPY . .
 # Creates Environmental Variable
 ENV PORT=8080
 
-# Opens Port 8080
-EXPOSE 8080
+# Take Args for buildings
+ENV POSTGRES_HOST=db
+
 
 
 # Runs Program
-CMD [ "npm", "start" ]
+CMD [ "./startup.sh"]
+

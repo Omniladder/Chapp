@@ -1,6 +1,39 @@
-
 services:
   backend:
-    build: .
+    build: ./src
+    restart: always
+    env_file:
+      - .env
+    environment:
+      POSTGRES_HOST: db
+    depends_on:
+      - db
+
+  frontend:
+    build: ./frontend
+    restart: always
     ports:
-      - "8080:8080"
+      - "8080:80"
+  
+  db:
+    image: postgres:13
+    restart: always
+    hostname: db
+    env_file:
+      - .env
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  nginx:
+    build: ./proxy
+    restart: always
+    depends_on:
+      - frontend
+      - backend
+    ports:
+      - "80:80"
+
+volumes:
+  db_data:
+
+
