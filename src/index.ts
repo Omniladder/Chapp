@@ -38,7 +38,7 @@ async function testServer() {
 }
 
 
-app.listen(port, () => {
+app.listen(port, '0.0.0.0', () => {
   console.log(`Running Chapp on port ${port}`);
 });
 

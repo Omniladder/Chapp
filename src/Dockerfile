@@ -12,7 +12,7 @@ RUN npm install
 COPY . .
 
 # Creates Environmental Variable
-ENV PORT=8080
+ENV PORT=3000
 
 # Take Args for buildings
 ENV POSTGRES_HOST=db
