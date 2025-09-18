@@ -1,0 +1,116 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-rev-proxy 
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: ingress-rev-proxy
+  rules:
+  - http:
+      paths:
+      - path: /api
+        pathType: Prefix
+        backend:
+          service:
+            name: chapp-backend
+            port:
+              number: 3000
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: chapp-frontend
+            port:
+              number: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: chapp
+  labels:
+    app: chapp
+    tier: frontend
+    role: master
+spec:
+  ports:
+  - port: 8080
+    targetPort: 8080
+  selector:
+    app: chapp
+    tier: frontend
+    role: master
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+  labels:
+    app: chapp
+    tier: frontend
+    role: master
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: chapp
+      tier: frontend
+      role: master
+  template:
+    metadata:
+      labels:
+        app: chapp
+        tier: frontend
+        role: master
+    spec:
+      containers:
+      - name: master-frontend
+        image: omniladder/chapp-frontend:latest
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: chapp
+  labels:
+    app: chapp
+    tier: backend
+    role: master
+spec:
+  ports:
+  - port: 3000
+    targetPort: 3000 
+  selector:
+    app: chapp
+    tier: backend 
+    role: master
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+  labels:
+    app: chapp
+    tier: backend
+    role: master
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: chapp
+      tier: backend
+      role: master
+  template:
+    metadata:
+      labels:
+        app: chapp
+        tier: backend
+        role: master
+    spec:
+      containers:
+      - name: master-backend
+        image: omniladder/chapp-backend:latest
+        ports:
+        - containerPort: 3000
+
