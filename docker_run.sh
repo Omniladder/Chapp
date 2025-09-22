@@ -1,2 +1,2 @@
-ln -s ./.env src/.env
+cp ./.env src/.env
 sudo docker compose up -d

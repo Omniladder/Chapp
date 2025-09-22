@@ -5,7 +5,7 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
-  ingressClassName: ingress-rev-proxy
+  ingressClassName: nginx
   rules:
   - http:
       paths:
@@ -22,20 +22,20 @@ spec:
           service:
             name: chapp-frontend
             port:
-              number: 8080
+              number: 80
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: chapp
+  name: chapp-frontend
   labels:
     app: chapp
     tier: frontend
     role: master
 spec:
   ports:
-  - port: 8080
-    targetPort: 8080
+  - port: 80
+    targetPort: 80
   selector:
     app: chapp
     tier: frontend
@@ -65,14 +65,15 @@ spec:
     spec:
       containers:
       - name: master-frontend
-        image: omniladder/chapp-frontend:latest
+        image: chapp-frontend:latest
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8080
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: chapp
+  name: chapp-backend
   labels:
     app: chapp
     tier: backend
@@ -110,7 +111,56 @@ spec:
     spec:
       containers:
       - name: master-backend
-        image: omniladder/chapp-backend:latest
+        image: chapp-backend:latest
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: db
+  labels:
+    app: chapp
+    tier: db 
+    role: master
+spec:
+  ports:
+  - port: 5432
+    targetPort: 5432
+  selector:
+    app: chapp
+    tier: db
+    role: master
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db
+  labels:
+    app: chapp
+    tier: db
+    role: master
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: chapp
+      tier: db
+      role: master
+  template:
+    metadata:
+      labels:
+        app: chapp
+        tier: db 
+        role: master
+    spec:
+      containers:
+      - name: master-db
+        image: postgres:13
+        envFrom:
+          - configMapRef:
+              name: env-file
+        ports:
+        - containerPort: 5432
 
