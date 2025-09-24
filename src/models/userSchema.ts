@@ -24,7 +24,19 @@ User.init({
     },
     password: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
+    },
+    googleID: {
+        type: DataTypes.INTEGER,
+        allowNull: true
+    },
+    facebookID: {
+        type: DataTypes.INTEGER,
+        allowNull: true
+    },
+    linkedinID: {
+        type: DataTypes.INTEGER,
+        allowNull: true
     },
     email: {
         type: DataTypes.STRING,
