@@ -4,6 +4,7 @@ import { addUser, login } from "./services/Auth/auth";
 import { deleteAccount, logout } from "./services/Signout/signout"
 import { queryPeople, addFriend, getFriends } from "./services/FriendFunctions/friendFunctions"
 import { sendMessage, getMessages } from './services/Messages/messages'
+import { googleAuth, googleToken } from './services/Auth/oauth'
 
 import sequelize from './dbFiles/db';
 import session from 'express-session';
@@ -11,6 +12,8 @@ import { constrainedMemory } from 'node:process';
 
 const app = express();
 const port = 3000;
+
+
 
 app.use(express.json());
 app.use(session({
@@ -51,6 +54,9 @@ app.post('/api/signup', async (req: Request, res: Response) => {
         return res.status(201).json(output);
 });
 
+
+
+
 app.post('/api/login', async (req: Request, res: Response) => {
     console.log("Received Login");
     let output = await login(req);
@@ -60,6 +66,16 @@ app.post('/api/login', async (req: Request, res: Response) => {
     else{
        return res.status(201).json(output);
     }
+});
+
+app.get('/api/google', async (req: Request, res: Response) => {
+    console.log("Google Auth Called")
+    await googleAuth(req, res);
+});
+
+app.get('/api/googleToken', async (req: Request, res: Response) => {
+    console.log("Google Token Called");
+    await googleToken(req, res);
 });
 
 app.delete('/api/delete', async (req: Request, res: Response) => {

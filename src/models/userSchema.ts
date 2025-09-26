@@ -9,6 +9,9 @@ export class User extends Model{
     public email!: string;
     public fname!: string;
     public lname!: string;
+    public googleID!: string;
+    public linkedinID!: string;
+    public facebookID!: string;
 }
 
 console.log("Before Init");
@@ -27,16 +30,19 @@ User.init({
         allowNull: true,
     },
     googleID: {
-        type: DataTypes.INTEGER,
-        allowNull: true
+        type: DataTypes.STRING,
+        allowNull: true,
+        unique: true
     },
     facebookID: {
-        type: DataTypes.INTEGER,
-        allowNull: true
+        type: DataTypes.STRING,
+        allowNull: true,
+        unique: true
     },
     linkedinID: {
-        type: DataTypes.INTEGER,
-        allowNull: true
+        type: DataTypes.STRING,
+        allowNull: true,
+        unique: true
     },
     email: {
         type: DataTypes.STRING,
