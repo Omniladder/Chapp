@@ -23,8 +23,6 @@ export async function googleAuth(req: express.Request, res: express.Response){
         redirect_uri: REDIRECT_URI
     }) 
 
-    console.log("Google URL: ", googleURL);
-    console.log(REDIRECT_URI);
     res.redirect(googleURL)
 }
 
@@ -49,8 +47,8 @@ export async function googleToken(req: express.Request, res: express.Response){
     //Get User
     let dbUser = await User.findOne({where: {googleID: data.id}});
     if(!dbUser) {
-        const { id, email, name } = data;
-        const user = { googleID: id, email: email, firstName: name, lastName: '', username: email!.split("@")[0]}
+        const { id, email, given_name, family_name } = data;
+        const user = { googleID: id, email: email, fname: given_name, lname: family_name, username: email!.split("@")[0]}
         dbUser = await User.create(user)
     }
 
