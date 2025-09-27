@@ -11,7 +11,6 @@ export class User extends Model{
     public lname!: string;
     public googleID!: string;
     public githubID!: string;
-    public facebookID!: string;
 }
 
 console.log("Before Init");
@@ -30,11 +29,6 @@ User.init({
         allowNull: true,
     },
     googleID: {
-        type: DataTypes.STRING,
-        allowNull: true,
-        unique: true
-    },
-    facebookID: {
         type: DataTypes.STRING,
         allowNull: true,
         unique: true

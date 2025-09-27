@@ -83,7 +83,6 @@ export async function githubAuth(req: express.Request, res: express.Response){
 
     const githubURL = GH_BASE_URL + CLIENT_QUERY + REDIRECT_QUERY + SCOPE_QUERY;
 
-    console.log("Github URL: ", githubURL);
 
     res.redirect(githubURL)
 }
@@ -115,9 +114,6 @@ export async function githubToken(req: express.Request, res: express.Response) {
 
 
     const tokenData = await tokenResponse.json();
-    console.log("Client ID: ", GITHUB_CLIENT_ID);
-    console.log("Client Secret: ", GITHUB_CLIENT_SECRET)
-    console.log("Token Data: ", tokenData);
     const accessToken = tokenData.access_token;
 
     const user = await getGithubUser(accessToken);
@@ -148,10 +144,7 @@ async function getGithubUser(accessToken: string) {
       });
 
     const emails = await emailResponse.json()
-    console.log(emails);
     const primaryEmail = emails.find((e: any) => e.primary)?.email || null;
-    console.log("User Name: ", user.name);
-    console.log(user.name?.split(" "));
     const dbUser = {
         githubID: user.id.toString(),
         username: user.login,
