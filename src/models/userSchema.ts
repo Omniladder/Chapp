@@ -10,7 +10,7 @@ export class User extends Model{
     public fname!: string;
     public lname!: string;
     public googleID!: string;
-    public linkedinID!: string;
+    public githubID!: string;
     public facebookID!: string;
 }
 
@@ -39,7 +39,7 @@ User.init({
         allowNull: true,
         unique: true
     },
-    linkedinID: {
+    githubID: {
         type: DataTypes.STRING,
         allowNull: true,
         unique: true

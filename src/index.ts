@@ -4,7 +4,8 @@ import { addUser, login } from "./services/Auth/auth";
 import { deleteAccount, logout } from "./services/Signout/signout"
 import { queryPeople, addFriend, getFriends } from "./services/FriendFunctions/friendFunctions"
 import { sendMessage, getMessages } from './services/Messages/messages'
-import { googleAuth, googleToken } from './services/Auth/oauth'
+
+import { googleAuth, googleToken, githubAuth, githubToken } from './services/Auth/oauth'
 
 import sequelize from './dbFiles/db';
 import session from 'express-session';
@@ -76,6 +77,16 @@ app.get('/api/google', async (req: Request, res: Response) => {
 app.get('/api/googleToken', async (req: Request, res: Response) => {
     console.log("Google Token Called");
     await googleToken(req, res);
+});
+
+app.get('/api/github', async (req: Request, res: Response) => {
+    console.log("Github Auth Called")
+    await githubAuth(req, res);
+});
+
+app.get('/api/githubToken', async (req: Request, res: Response) => {
+    console.log("Github Token Called");
+    await githubToken(req, res);
 });
 
 app.delete('/api/delete', async (req: Request, res: Response) => {
