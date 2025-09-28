@@ -3,7 +3,7 @@ kind: Ingress
 metadata:
   name: ingress-rev-proxy 
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
+    {}
 spec:
   ingressClassName: nginx
   rules:
@@ -68,7 +68,7 @@ spec:
         image: chapp-frontend:latest
         imagePullPolicy: IfNotPresent
         ports:
-        - containerPort: 8080
+        - containerPort: 80
 ---
 apiVersion: v1
 kind: Service
