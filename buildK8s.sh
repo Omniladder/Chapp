@@ -1,3 +1,5 @@
+eval $(minikube docker-env)
+
 sudo docker build -t chapp-frontend:latest ./frontend
 sudo docker build -t chapp-backend:latest ./src
 
