@@ -1,7 +1,7 @@
 !["Chapp. Logo"](./images/FullLogo.png "Chapp. Logo")
 <br>
 <br>
-"*An Open-source Gamified Chatting Platform*"
+"*An Open-source Gamified Social Media Platform*"
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](./LICENSE)
 [![Website Link](https://img.shields.io/badge/%27check%20it%20out%27%20-33FF33?style=for-the-badge&logo=linkfire)](https://chapp.dustintobrien.com)
@@ -18,7 +18,7 @@
 
 
 # Description
-**Chapp** is a *Gamified Open-source Texting-based Social Media Platform* in the sense that it allows for **achievements** and **competitive** elements with friends by tracking number of days in a row you've communicated and compeitive achievements to show who you and your friends have been talking too. Loosely based on Snapchat **Chapp.** Differentiates itself with a PC and text oriented design allowing texting on the computer while maintaining a responsive design for those on mobile as well as an increased accuracy in achivement status. Its open-source nature also allows for private hosting and internal usage among friend groups as well as allowing for modified versions of the program.
+**Chapp.** is a Gamified Open-source Texting-based Social Media Platform in the sense that it allows for achievements and competitive elements with friends by tracking number of days in a row you've communicated and compeitive achievements to show who you and your friends have been talking too. Loosely based on Snapchat Chapp. Differentiates itself with a PC and text oriented design allowing texting on the computer while maintaining a responsive design for those on mobile as well as an increased accuracy in achivement status. Its open-source nature also allows for private hosting and internal usage among friend groups as well as allowing for modified versions of the program.
 <br>
 
 **View The Site At:** [https://chapp.dustintobrien.com](https://chapp.dustintobrien.com)
@@ -30,10 +30,44 @@
 - Accurate achievements displaying relationship aspects
 - Simple intuitive texting interface
 - Responsive Design for Cross-platform usage
+- OAuth with Github and Google Support
 - Complete Modular and Containerized Infrastructure
 - Early K8s and Scalability Support
 - Colorful & Easy to Read User Interface
 - Range of Hosting Options (Native, Docker Compose, K8s)
+
+# Technologies
+
+- **Frontend**
+    - Angular
+    - Typescript
+    - Javascript
+    - TailwindCSS 
+    - HTML
+    - PostCSS
+
+- **Backend**
+    - Node.JS
+    - Express.JS
+    - Typescript
+    - Express Session
+    - Javascript
+    - Sequelize
+    - Rest API
+
+- **Database** 
+    - PostgreSQL
+    - SQL
+    - Sequelize
+
+- **DevOps / Infrastructure** 
+    - Docker
+    - Docker Compose
+    - Kubernetes / k8s
+    - Proxmox
+    - Shell
+    - Nginx
+    - YAML
 
 
 
