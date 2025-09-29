@@ -1,9 +1,7 @@
+<center>
+    <img src="./images/FullLogo.png" width=600>
+    <br>
+    <p style="font-size:16px;">"An Open Source Gamified Chat Platform"</p>
+</center>
 
-env.example gives explanation of necessary environmental variables to set to run application
-
-Use the following command to edit accordingly
-```
-    cp env.example .env
-    nano .env
-    source .env
-```
+# Table of Contents
