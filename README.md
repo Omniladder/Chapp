@@ -18,6 +18,7 @@
 
 - [Table of Contents](#Table-of-Contents)
 - [Description](#Description)
+- [Features](#Features)
 - [Technologies](#Technologies)
 - [Images](#Images)
 - [Setup Guide](#Setup-Guide)
