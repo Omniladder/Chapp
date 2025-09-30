@@ -70,4 +70,41 @@
     - YAML
 
 
+# Images 
+<details>
+    <summary>Pictures</summary>
+    <h2>Login Screen</h2>
+        <img src="./images/demo/login.png">
+    <h2>Home Screen</h2>
+        <img src="./images/demo/home.png">
+    <h2>Create Account Screen</h2>
+        <img src="./images/demo/create.png">
+    <h2>Add Friend Menu</h2>
+        <img src="./images/demo/addFriend.png">
+    <h2>Chat Screen</h2>
+        <img src="./images/demo/chat.png">
+    <h2>Profile Menu</h2>
+        <img src="./images/demo/profile.png">
+</details>
+
+<br>
+
+# Setup Guide
+WIP
+
+<br>
+
+# Future Goals
+
+- Enable Redis In-memory Caching
+- Terraform based Cloud Deployment
+- Implementing Rate limiting for Security
+- Web Socket Based Messaging System
+- Accurate and Easy to Use Setup Guide
+- Reducing and Optimizing Queries
+- Up to Date Mutual Best Friends
+
+# License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
 
