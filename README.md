@@ -16,9 +16,16 @@
 
 # Table of Contents
 
+- [Table of Contents](#Table-of-Contents)
+- [Description](#Description)
+- [Technologies](#Technologies)
+- [Images](#Images)
+- [Setup Guide](#Setup-Guide)
+- [License](#License)
 
 # Description
-**Chapp.** is a Gamified Open-source Texting-based Social Media Platform in the sense that it allows for achievements and competitive elements with friends by tracking number of days in a row you've communicated and compeitive achievements to show who you and your friends have been talking too. Loosely based on Snapchat Chapp. Differentiates itself with a PC and text oriented design allowing texting on the computer while maintaining a responsive design for those on mobile as well as an increased accuracy in achivement status. Its open-source nature also allows for private hosting and internal usage among friend groups as well as allowing for modified versions of the program.
+**Chapp.** is a Gamified Open-source Texting-based Social Media Platform in the sense that it allows for achievements and competitive elements with friends by tracking number of days in a row you've communicated and compeitive achievements to show who you and your friends have been talking too. Loosely based on Snapchat Chapp. Differentiates itself with a PC and text oriented design allowing texting on the computer while maintaining a responsive design for those on mobile as well as an increased accuracy in achivement status. Its open-source nature also allows for private hosting and internal usage among friend groups as well as allowing for modified versions of the program. Designed to both be a learning experience as well as valuable Chapp. utilizes Javascript as its complete stack utilzing npm as well as Express.JS and utilizes Docker and a growing number of other Infrastructure based tools to make running your own server as simple as possible.
+
 <br>
 
 **View The Site At:** [https://chapp.dustintobrien.com](https://chapp.dustintobrien.com)
