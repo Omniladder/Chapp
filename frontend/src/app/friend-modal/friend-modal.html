@@ -1,0 +1,43 @@
+<div class=" bg-[#F6F8FF] w-[90vw] h-[17vh] md:h-[10vw] rounded-xl ml-[2.5vw] border-[#EDB458] cursor-pointer transform transition-all duration-500 hover:scale-102 border-5 flex flex-row items-center shadow-[3px_3px_12px_rgba(0,0,0,0.5)] " (click)="goToChat()">
+  <img src="../../assets/ProfileIcons/Profile.png" class="h-[8vw] hidden md:block w-auto ml-8 ">
+  <div class="ml-7 flex flex-col">
+    <h1 class=" text-[#272D2D] font-bold md:text-[3vw] text-[3vh] " >{{name}}</h1>
+    <h1 class=" text-gray-500 md:text-[1.5vw] text-[1.5vh] mt-[-.5vh]">{{username}}</h1>
+
+    @if (missedMessages > 1) {
+    <h1 class=" text-[#28AFB0] md:text-[1.5vw] text-[1.5vh] mt-[.5vh] " >{{ missedMessages }} Missed Messages</h1>
+  }
+  @else{
+   @if (missedMessages == 1) {
+     <h1 class=" text-[#28AFB0] md:text-[1.5vw] mt-[.5vh] text-[1.5vh]" >{{ missedMessages }} Missed Message</h1>
+   }
+   @else{
+     <h1 class=" text-[#272D2D] md:text-[1.5vw] mt-[.5vh] text-[1.5vh]" >No Missed Messages</h1>
+   }
+  }
+  </div>
+
+  <div class=" ml-auto mr-[.5vw]  flex flex-row">
+
+    <div class="flex flex-col mt-1">
+      <h1 class="mr-13 ml-auto text-[2vw] hidden md:block text-[#272D2D]">Achievements:</h1>
+      <div class="mr-13 flex flex-col mt-[.5vh]">
+        @for (achievement of achievements ; track achievement)
+        {
+        <h3 class=" text-[#EDB458] text-[1.7vw] hidden md:block mt-[-.8vh] ml-auto ">{{achievement}}</h3>
+      }
+      <!--      <h3 class=" text-[#EDB458] text-2xl ml-auto ">Friend of a Friend </h3> -->
+      </div>
+    </div>
+
+    <div class=" border-[#272D2D] flex flex-row justify-center items-center">
+       <h1 class=" text-[#272D2D] md:text-[2vw] text-[2vh] mr-[1vw] hidden md:block  md:mr-5 ">Chain:</h1>
+       <div class=" bg-[#EDB458] items-center justify-center mr-[1vw] flex  rounded-full w-[12vh] h-[12vh] md:w-[8vw] md:h-[8vw] border-5 border-[#EC4E20] ">
+
+         <h1 class=" text-[5vw] text-[#F6F8FF] font-bold ">{{ chain }}</h1>
+       </div>
+   </div>
+  </div>
+
+
+</div>

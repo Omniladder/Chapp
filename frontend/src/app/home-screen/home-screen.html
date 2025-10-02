@@ -1,0 +1,17 @@
+
+  <div class="flex flex-col flex-1 h-screen">
+<website-header [showLogo]="true" [rightSide]="rightSide" />
+
+  <ng-template #rightSide>
+    <profile-buttons (onAdd)="getFriends()"/>
+  </ng-template>
+
+    <div class="flex flex-col flex-1 overflow-hidden overflow-y-auto ">
+      <h1 class=" text-[#F6F8FF] ml-10 mt-[1vh] text-[5vh] md:text-[6vh]  [font-family:'K2D-Bold',sans-serif]  ">Friends:</h1>
+
+     <div  *ngFor="let friend of friends" class="   grid grid-cols-1 ">
+          <friend-modal class="mt-[3vh]"  [missedMessages]=friend.missedMessages [chain]=friend.streak [fname]=friend.user2.fname [lname]=friend.user2.lname [isRival]=friend.isRival [isTop]=friend.isTop [isBest]=friend.isBest [isMutualBest]=friend.isMutualBest [isFoF]=friend.isFoF [username]=friend.user2.username [id]=friend.user2.id  />
+     </div>
+    </div>
+  </div>
+

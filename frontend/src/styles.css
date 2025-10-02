@@ -1,0 +1,25 @@
+@import "tailwindcss";
+@import "primeicons/primeicons.css";
+@plugin "tailwindcss-primeui";
+
+/* Import Preferred Nimbus Font used for logo*/
+@font-face {
+  font-family: "Nimbus Sans";
+  src: url('assets/Fonts/nimbus-sans-l.bold.otf') format('opentype');
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: "Josefin Sans";
+  src: url('assets/Fonts/JosefinSans-VariableFont_wght.ttf') format('opentype');
+}
+
+@font-face {
+  font-family: "K2D-Bold";
+  src: url('assets/Fonts/K2D-Bold.ttf');
+}
+
+@font-face {
+  font-family: "Instrument-Sans";
+  src: url('assets/Fonts/InstrumentSans-VariableFont_wdth\,wght.ttf');
+}

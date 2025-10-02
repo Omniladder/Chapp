@@ -1,0 +1,37 @@
+
+
+<website-header [showLogo]="true" [rightSide]="rightSide" ></website-header>
+
+<ng-template #rightSide>
+  <home-button></home-button>
+</ng-template>
+
+<div class="w-screen h-screen items-center mt-8 flex flex-col ">
+
+  <div class=" w-[95vw] h-[52vh] bg-[#F6F8FF] rounded-4xl border-7 border-[#EDB458] overflow-hidden overflow-y-auto flex flex-col-reverse p-4" >
+    <div *ngFor="let message of messages">
+      @if (message.senderID != this.friendID) {
+      <div class=" bg-[#EC4E20] max-w-[40vw] min-w-50 w-fit relative h-auto ml-[1vw] md:ml-8 mt-4 p-4 rounded-3xl flex flex-col flex-wrap self-start">
+      <div class="absolute left-[-10px] bottom-3 hidden md:block md:w-10 md:h-10 bg-[#EC4E20] rotate-30 rounded-xl"></div>
+      <h1 class=" z-2 text-[#f6f8ff] font-bold text-[3vw] md:text-[3vh]" >{{message.message}}</h1>
+      <h2 class="z-2 text-[2.5vw] md:text-[1.2vw] ml-auto text-[#f6f8ff] ">You</h2>
+    </div>
+      }
+      @else{
+      <div class=" bg-[#272D2D] max-w-[40vw] w-fit min-w-50 relative h-auto ml-auto  mr-[1vw] md:mr-8 mt-4 p-5 rounded-3xl flex flex-col flex-wrap self-end">
+      <div class="absolute right-[-10px] bottom-3 hidden md:block w-10 h-10 bg-[#272D2D] rotate-60 rounded-xl"></div>
+      <h1 class=" z-2 ml-3 mt-3 [font-family:'Instrument-Sans',sans-serif] font-bold text-[3vw] md:text-[3vh]  text-[#f6f8ff]  " >{{message.message}}</h1>
+      <h2 class=" text-[2.5vw] md:text-[1.2vw] text-[#f6f8ff] mt-2  z-2">{{ this.friendUsername }}</h2>
+    </div>
+      }
+    </div>
+ </div>
+
+    <div class="flex flex-row mt-7 ">
+      <div class=" bg-[#F6F8FF] w-[60vw] md:w-[80vw] h-[22vh]  border-7 border-[#EDB458]  rounded-3xl flex justify-center items-center ">
+        <textarea class=" w-[75vw] h-[18vh] ml-[.5vw] text-[4vw] md:text-[3.5vh] resize-none font-bold font-[#272D2D]" [(ngModel)]="messageInput" placeholder="Type Message Here:" ></textarea>
+      </div>
+      <button class=" h-[22vh] w-[30vw] md:w-[10vw] rounded-3xl   bg-[#EDB458] text-[#F6F8FF] font-bold text-xl ml-5 cursor-pointer shadow-[3px_3px_12px_rgba(0,0,0,0.5)] transform transition-all duration-200 hover:scale-107 active:scale-95 border-5 border-[#272D2D] " (click)="sendMessage()">Send</button>
+    </div>
+
+</div>

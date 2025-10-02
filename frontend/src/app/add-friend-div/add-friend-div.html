@@ -1,0 +1,17 @@
+<div class=" bg-[#F6F8FF] w-[80vw] md:w-170 md:h-30 mt-5 rounded-xl border-[#EC4E20] border-4 items-center flex flex-row ">
+  <img src="../../assets/ProfileIcons/Profile.png" class="w-25 hidden md:block ml-3 " >
+  <div class="flex flex-col p-3">
+    <div>
+      <h1 class=" font-bold text-3xl ">{{name}}</h1>
+      <h1 class=" text-gray-400 text-xl ">{{username}}</h1>
+    </div>
+    @if (isFoF) {
+      <h1 class=" text-[#EDB458] text-2xl ">Friend of a Friend</h1>
+    }
+  </div>
+
+  <button class=" bg-[#EC4E20] w-20 h-auto rounded-full flex  ml-auto mr-5 border-[#EDB458] border-5 cursor-pointer hover:scale-105 active:scale-95 " (click)="addFriend()">
+    <img src="../../assets/ProfileIcons/add.png" class="w-40 items-center justify-center ">
+  </button>
+
+</div>
