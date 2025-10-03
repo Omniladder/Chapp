@@ -4,7 +4,7 @@
   "description": "A Gamified Messaging Social Media Platform",
   "license": "ISC",
   "author": "omniladder",
-  "type": "commonjs",
+  "type": "module",
   "main": "index.ts",
   "scripts": {
     "dev": "ts-node-dev --respawn index.ts",
