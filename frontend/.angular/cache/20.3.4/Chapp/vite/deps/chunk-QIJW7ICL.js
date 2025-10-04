@@ -50,6 +50,12 @@ function W(t2, e) {
     [e].flat().filter(Boolean).forEach((n) => n.split(" ").forEach(o));
   }
 }
+function B() {
+  return window.innerWidth - document.documentElement.offsetWidth;
+}
+function st(t2) {
+  typeof t2 == "string" ? W(document.body, t2 || "p-overflow-hidden") : (t2 != null && t2.variableName && document.body.style.setProperty(t2.variableName, B() + "px"), W(document.body, (t2 == null ? void 0 : t2.className) || "p-overflow-hidden"));
+}
 function O(t2, e) {
   if (t2 && e) {
     let o = (n) => {
@@ -57,6 +63,9 @@ function O(t2, e) {
     };
     [e].flat().filter(Boolean).forEach((n) => n.split(" ").forEach(o));
   }
+}
+function dt(t2) {
+  typeof t2 == "string" ? O(document.body, t2 || "p-overflow-hidden") : (t2 != null && t2.variableName && document.body.style.removeProperty(t2.variableName), O(document.body, (t2 == null ? void 0 : t2.className) || "p-overflow-hidden"));
 }
 function x(t2) {
   for (let e of document == null ? void 0 : document.styleSheets) try {
@@ -1330,8 +1339,11 @@ export {
   f,
   R,
   W,
+  st,
   O,
+  dt,
   x,
+  h,
   D,
   v,
   I,
@@ -1378,4 +1390,4 @@ export {
   TranslationKeys,
   TreeDragDropService
 };
-//# sourceMappingURL=chunk-L7ESSGLK.js.map
+//# sourceMappingURL=chunk-QIJW7ICL.js.map

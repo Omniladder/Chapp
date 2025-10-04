@@ -1,14 +1,14 @@
+
+<img src="../../assets/ProfileIcons/Profile.png" class="cursor-pointer h-[11vh] w-auto ml-8 shadow-[3px_3px_12px_rgba(0,0,0,0.5)] rounded-full hover:scale-107 " (click)="openModal()">
+
+<p-dialog [(visible)]="showProfile" modal="true"  >
 <div class=" w-[85vw] h-[60vh] md:w-120 md:h-100 bg-[#F6F8FF] rounded-3xl border-5 border-[#EDB458] flex flex-col items-center">
-  <div class="mt-[.5vh] flex justify-center items-center flex-row  ">
+  <div class="mt-[.5vh] flex  flex-row  ">
     <h1 class="ml-8 mt-4 font-[#272D2D] text-[10vw] md:text-5xl font-bold [font-family:'Josefin Sans',sans-serif] mr-auto  ">Profile:</h1>
-    <button class=" ml-[2vw] border-[#EDB458] border-4 bg-[#272D2D] hover:bg-[#EC4E20] transform transition-all items-center justify-center cursor-pointer rounded-[99999vw] w-[8.5vh] h-[8.5vh] md:w-[5vw] md:h-[5vw] ">
-      <img class=" ml-auto mr-auto w-[3vh] md:w-[3vw] h-auto " src="../../assets/ProfileIcons/back.png">
-    </button>
   </div>
   <button class=" border-[#EC4E20] w-[60vw] h-[15vh] border-3 md:w-90 md:h-25 text-[4vh] md:text-4xl font-bold rounded-3xl bg-[#EDB458] mt-6 cursor-pointer hover:bg-[#272D2D] hover:text-[#F6F8FF] transform transition-all duration-400  " (click)="logout()">Log out</button>
   <button class=" border-[#EC4E20] border-3 w-[60vw] h-[15vh] md:w-90 md:h-25 text-[4vh] md:text-4xl font-bold rounded-3xl bg-[#EDB458] mt-10 cursor-pointer transform transition-all duration-400 hover:bg-red-500 hover:text-[#F6F8FF] "  (click)="confirmDelete($event)" >Delete Account</button>
 </div>
-
-<p-confirmpopup/>
+</p-dialog>
 
 

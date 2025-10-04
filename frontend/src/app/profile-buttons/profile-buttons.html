@@ -3,11 +3,8 @@
   <div class=" bg-[#F6F8FF]  h-[11vh] w-[11vh] justify-center items-center flex rounded-full border-5 border-[#EDB458] shadow-[3px_3px_12px_rgba(0,0,0,0.5)] hover:scale-107 ">
     <img src="../../assets/ProfileIcons/AddPerson.png" class="cursor-pointer h-[7vh] w-auto  "  (click)="addFriend.toggle($event)">
   </div>
-  <img src="../../assets/ProfileIcons/Profile.png" class="cursor-pointer h-[11vh] w-auto ml-8 shadow-[3px_3px_12px_rgba(0,0,0,0.5)] rounded-full hover:scale-107 " (click)="profile.toggle($event)">
-</div>
-<p-popover #profile  >
   <profile-modal></profile-modal>
-</p-popover>
+</div>
 
 
 <p-popover #addFriend>

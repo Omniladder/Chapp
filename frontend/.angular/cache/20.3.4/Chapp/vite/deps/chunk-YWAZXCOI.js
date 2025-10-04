@@ -1,9 +1,14 @@
 import {
   sequence
-} from "./chunk-6VPHERGZ.js";
+} from "./chunk-KG52PF6D.js";
 import {
+  rr
+} from "./chunk-F7NPH22Z.js";
+import {
+  dt,
+  st,
   x
-} from "./chunk-L7ESSGLK.js";
+} from "./chunk-QIJW7ICL.js";
 import {
   ANIMATION_MODULE_TYPE,
   DOCUMENT,
@@ -868,6 +873,12 @@ var DomHandler = class _DomHandler {
                 [contenteditable]:not([tabIndex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])${selector}`) : false;
   }
 };
+function blockBodyScroll() {
+  st({ variableName: rr("scrollbar.width").name });
+}
+function unblockBodyScroll() {
+  dt({ variableName: rr("scrollbar.width").name });
+}
 var ConnectedOverlayScrollHandler = class {
   element;
   listener;
@@ -938,6 +949,8 @@ var zindexutils = ZIndexUtils();
 
 export {
   DomHandler,
+  blockBodyScroll,
+  unblockBodyScroll,
   ConnectedOverlayScrollHandler,
   zindexutils
 };
@@ -950,4 +963,4 @@ export {
    * License: MIT
    *)
 */
-//# sourceMappingURL=chunk-XDJNIRBF.js.map
+//# sourceMappingURL=chunk-YWAZXCOI.js.map

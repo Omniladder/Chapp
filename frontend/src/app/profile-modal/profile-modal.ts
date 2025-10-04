@@ -3,16 +3,18 @@ import { Router } from '@angular/router';
 import { ConfirmPopupModule } from 'primeng/confirmpopup'
 import { ConfirmationService } from 'primeng/api';
 import { AuthService } from '../services/auth.service';
+import { DialogModule } from 'primeng/dialog';
 
 @Component({
   selector: 'profile-modal',
-  imports: [ConfirmPopupModule],
+  imports: [ConfirmPopupModule, DialogModule],
   providers: [ConfirmationService],
   templateUrl: './profile-modal.html',
   styleUrl: './profile-modal.css'
 })
 export class ProfileModal {
 
+  showProfile=false;
   constructor(private confirmationService: ConfirmationService, private authService: AuthService) {}
   private router = inject(Router)
 
@@ -24,6 +26,13 @@ export class ProfileModal {
     });
 
     this.router.navigate(['/login']);
+  }
+
+  openModal() {
+    this.showProfile=true;
+  }
+  closeModal() {
+    this.showProfile=false;
   }
 
   confirmDelete(event: Event) {
