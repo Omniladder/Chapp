@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { DialogModule } from 'primeng/dialog';
 import { ChangeDetectorRef } from '@angular/core';
+import {EventEmitter, Output} from '@angular/core';
 
 @Component({
   selector: 'friend-settings-modal',
@@ -12,6 +13,7 @@ export class FriendSettingsModal {
 
     @Input() id!: number;
 
+    @Output() onRemove = new EventEmitter<void>();
 
     constructor(private cdr: ChangeDetectorRef) {}
 
@@ -33,6 +35,7 @@ export class FriendSettingsModal {
       });
       this.showSetting = false;
       this.cdr.detectChanges();
+      this.onRemove.emit();
     }
 
 

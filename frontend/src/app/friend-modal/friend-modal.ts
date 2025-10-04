@@ -1,6 +1,7 @@
 import { Component, inject, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { FriendSettingsModal } from '../friend-settings-modal/friend-settings-modal';
+import {EventEmitter, Output} from '@angular/core';
 
 @Component({
   selector: 'friend-modal',
@@ -13,6 +14,7 @@ export class FriendModal {
   private router = inject(Router)
 
 
+  @Output() onRemove = new EventEmitter<void>();
 
   // Data Variables
 
@@ -53,6 +55,9 @@ export class FriendModal {
     return `${this.fname} ${this.lname}`;
   }
 
+  friendRemoved(){
+    this.onRemove.emit();
+  }
 
   goToChat(){
     this.router.navigate(['/chat'], { queryParams: {friendID: this.id, friendUsername: this.username}});
