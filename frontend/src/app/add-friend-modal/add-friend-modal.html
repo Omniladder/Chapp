@@ -1,14 +1,20 @@
-<div class=" w-[90vw] h-[80vh] md:w-190 md:h-150 bg-[#EDB458] border-[#272D2D] border-5 rounded-4xl p-3  flex flex-col items-center ">
-  <h1 class=" text-4xl font-bold text-[#272D2D] ml-5 mr-auto   ">Add Friends</h1>
-  <div class=" justify-center items-center flex flex-row mt-5">
-    <input type="text" class="  w-[50vw] p-2 md:w-135 bg-[#F6F8FF] rounded-xl h-15  border-[#EC4E20] border-4 text-[4vw] md:text-2xl  font-bold font-[#272D2D]  " pInputText placeholder="Enter Friends Name:" [(ngModel)]="query"/>
-    <button class="  h-15 w-25 border-4 rounded-2xl ml-2 font-bold bg-[#272D2D] text-[#F6F8FF] border-[#EC4E20]  active:bg-[#F6F8FF] active:text-[#272D2D] cursor-pointer hover:scale-110 duration-250 transition-all  active:scale-95 " (click)='queryUsers()'>Submit</button>
-  </div>
-  <div class="overflow-y-scroll overflow-y-hidden w-180  flex flex-col items-center ">
 
-    <div *ngFor="let user of users">
-      <add-friend-div [fname]=user.fname [lname]=user.lname [id]=user.id  [username]=user.username  [isFoF]=user.isFoF (addedEvent)="updateFrontend()" ></add-friend-div>
-    </div>
-
-  </div>
+<div class=" bg-[#F6F8FF]  h-[11vh] w-[11vh] justify-center items-center flex rounded-full border-5 border-[#EDB458] shadow-[3px_3px_12px_rgba(0,0,0,0.5)] hover:scale-107 ">
+  <img src="../../assets/ProfileIcons/AddPerson.png" class="cursor-pointer h-[7vh] w-auto  "  (click)="openModal()">
 </div>
+<p-dialog [(visible)]="showProfile" modal="true"  >
+  <div class=" w-[90vw] h-[80vh] md:w-190 md:h-150 bg-[#EDB458] border-[#272D2D] border-5 rounded-4xl p-3  flex flex-col items-center ">
+    <h1 class=" text-4xl font-bold text-[#272D2D] ml-5 mr-auto   ">Add Friends</h1>
+    <div class=" justify-center items-center flex flex-row mt-5">
+      <input type="text" class="  w-[50vw] p-2 md:w-135 bg-[#F6F8FF] rounded-xl h-15  border-[#EC4E20] border-4 text-[4vw] md:text-2xl  font-bold font-[#272D2D]  " pInputText placeholder="Enter Friends Name:" [(ngModel)]="query"/>
+      <button class="  h-15 w-25 border-4 rounded-2xl ml-2 font-bold bg-[#272D2D] text-[#F6F8FF] border-[#EC4E20]  active:bg-[#F6F8FF] active:text-[#272D2D] cursor-pointer hover:scale-110 duration-250 transition-all  active:scale-95 " (click)='queryUsers()'>Submit</button>
+    </div>
+    <div class="overflow-y-scroll overflow-y-hidden w-180  flex flex-col items-center ">
+
+      <div *ngFor="let user of users">
+        <add-friend-div [fname]=user.fname [lname]=user.lname [id]=user.id  [username]=user.username  [isFoF]=user.isFoF (addedEvent)="updateFrontend()" ></add-friend-div>
+      </div>
+
+    </div>
+  </div>
+</p-dialog>

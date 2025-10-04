@@ -4,7 +4,7 @@ import { Data } from '../services/data';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../services/auth.service';
 import { FormsModule } from '@angular/forms';
-
+import { DialogModule } from 'primeng/dialog';
 
   type User = {
     id: number;
@@ -20,7 +20,7 @@ import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'add-friend-modal',
-  imports: [AddFriendDiv, CommonModule, FormsModule],
+  imports: [AddFriendDiv, CommonModule, FormsModule, DialogModule],
   templateUrl: './add-friend-modal.html',
   styleUrl: './add-friend-modal.css'
 })
@@ -29,7 +29,7 @@ export class AddFriendModal {
   @Output() queryCalled = new EventEmitter<void>();
 
   constructor(private httpService: Data, private cdr: ChangeDetectorRef, private authService: AuthService){}
-
+  showProfile = false;
   users: User[] = [];
   query: string = '';
 
@@ -45,6 +45,14 @@ export class AddFriendModal {
 
   async queryUsers(){
     await this.getUsers(this.query);
+  }
+
+  openModal(){
+    this.showProfile = true;
+  }
+
+  closeModal(){
+    this.showProfile = false;
   }
 
   async getUsers(queryTerm?: string): Promise<void>{

@@ -1,12 +1,7 @@
 
 <div class="flex flex-row ">
-  <div class=" bg-[#F6F8FF]  h-[11vh] w-[11vh] justify-center items-center flex rounded-full border-5 border-[#EDB458] shadow-[3px_3px_12px_rgba(0,0,0,0.5)] hover:scale-107 ">
-    <img src="../../assets/ProfileIcons/AddPerson.png" class="cursor-pointer h-[7vh] w-auto  "  (click)="addFriend.toggle($event)">
-  </div>
+  <add-friend-modal (queryCalled)="addTriggered()"></add-friend-modal>
   <profile-modal></profile-modal>
 </div>
 
 
-<p-popover #addFriend>
-  <add-friend-modal (queryCalled)="addTriggered()"></add-friend-modal>
-<p-popover/>
