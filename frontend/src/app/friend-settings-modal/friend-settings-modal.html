@@ -1,0 +1,12 @@
+<button class=" rounded-full bg-[#272D2D] w-[4vh] h-[4vh] md:w-[3.5vw] md:h-[3.5vw] cursor-pointer hover:scale-110 " (click)="$event.stopPropagation(); openSettings();">
+  <img class=" md:w-[3vw] md:h-[3vw] ml-auto mr-auto w-[3.5vh] h-[3.5vh] " src="../../assets/ProfileIcons/settings.png">
+</button>
+
+<p-dialog [(visible)]="showSetting" modal="true" [appendTo]="'body'" >
+  <div class=" border-[.5vw]  p-[1.5vw]  border-[#EC4E20] rounded-4xl">
+  <div class="font-bold text-[#272D2D] text-[1.5vw] mb-[1.5vw]" >Friend Settings:</div>
+  <button class="w-[35vw] h-[10vh] cursor-pointer rounded-2xl bg-[#EDB458] font-bold text-white hover:bg-red-500 transform transition-colors duration-400 border-3 border-[#EC4E20] " (click)="removeFriend()">Remove Friend</button>
+  </div>
+</p-dialog>
+
+

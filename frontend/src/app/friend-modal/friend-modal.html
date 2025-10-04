@@ -37,9 +37,7 @@
          <h1 class=" text-[5vw] text-[#F6F8FF] font-bold ">{{ chain }}</h1>
        </div>
    </div>
-    <button class=" rounded-full bg-[#272D2D] w-[4vh] h-[4vh] md:w-[3.5vw] md:h-[3.5vw] cursor-pointer hover:scale-110 " (click)="openSettings()">
-      <img class=" md:w-[3vw] md:h-[3vw] ml-auto mr-auto w-[3.5vh] h-[3.5vh] " src="../../assets/ProfileIcons/settings.png">
-    </button>
+   <friend-settings-modal [id]=id/>
   </div>
 
 

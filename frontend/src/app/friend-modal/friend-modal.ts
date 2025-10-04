@@ -1,9 +1,10 @@
 import { Component, inject, Input } from '@angular/core';
 import { Router } from '@angular/router';
+import { FriendSettingsModal } from '../friend-settings-modal/friend-settings-modal';
 
 @Component({
   selector: 'friend-modal',
-  imports: [],
+  imports: [ FriendSettingsModal ],
   templateUrl: './friend-modal.html',
   styleUrl: './friend-modal.css'
 })
@@ -52,9 +53,6 @@ export class FriendModal {
     return `${this.fname} ${this.lname}`;
   }
 
-  openSettings(){
-
-  }
 
   goToChat(){
     this.router.navigate(['/chat'], { queryParams: {friendID: this.id, friendUsername: this.username}});
