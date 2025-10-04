@@ -1,18 +1,18 @@
-<div class=" bg-[#F6F8FF] w-[90vw] h-[17vh] md:h-[10vw] rounded-xl ml-[2.5vw] border-[#EDB458] cursor-pointer transform transition-all duration-500 hover:scale-102 border-5 flex flex-row items-center shadow-[3px_3px_12px_rgba(0,0,0,0.5)] " (click)="goToChat()">
+<div class=" bg-[#F6F8FF] w-[90vw] h-[12vh] md:h-[10vw] rounded-xl ml-[2.5vw] border-[#EDB458] cursor-pointer transform transition-all duration-500 hover:scale-102 border-5 flex flex-row items-center shadow-[3px_3px_12px_rgba(0,0,0,0.5)] " (click)="goToChat()">
   <img src="../../assets/ProfileIcons/Profile.png" class="h-[8vw] hidden md:block w-auto ml-8 ">
   <div class="ml-7 flex flex-col">
-    <h1 class=" text-[#272D2D] font-bold md:text-[3vw] text-[3vh] " >{{name}}</h1>
-    <h1 class=" text-gray-500 md:text-[1.5vw] text-[1.5vh] mt-[-.5vh]">{{username}}</h1>
+    <h1 class=" text-[#272D2D] font-bold md:text-[3vw] text-[1.7vh] " >{{name}}</h1>
+    <h1 class=" text-gray-500 md:text-[1.5vw] text-[.9vh] mt-[-.5vh]">{{username}}</h1>
 
     @if (missedMessages > 1) {
     <h1 class=" text-[#28AFB0] md:text-[1.5vw] text-[1.5vh] mt-[.5vh] " >{{ missedMessages }} Missed Messages</h1>
-  }
+    }
   @else{
    @if (missedMessages == 1) {
-     <h1 class=" text-[#28AFB0] md:text-[1.5vw] mt-[.5vh] text-[1.5vh]" >{{ missedMessages }} Missed Message</h1>
+     <h1 class=" text-[#28AFB0] md:text-[1.5vw] mt-[.5vh] text-[1vh]" >{{ missedMessages }} Missed Message</h1>
    }
    @else{
-     <h1 class=" text-[#272D2D] md:text-[1.5vw] mt-[.5vh] text-[1.5vh]" >No Missed Messages</h1>
+     <h1 class=" text-[#272D2D] md:text-[1.5vw] mt-[.5vh] text-[1vh]" >No Missed Messages</h1>
    }
   }
   </div>
@@ -32,11 +32,14 @@
 
     <div class=" border-[#272D2D] flex flex-row justify-center items-center">
        <h1 class=" text-[#272D2D] md:text-[2vw] text-[2vh] mr-[1vw] hidden md:block  md:mr-5 ">Chain:</h1>
-       <div class=" bg-[#EDB458] items-center justify-center mr-[1vw] flex  rounded-full w-[12vh] h-[12vh] md:w-[8vw] md:h-[8vw] border-5 border-[#EC4E20] ">
+       <div class=" bg-[#EDB458] items-center justify-center mr-[1vw] flex  rounded-full w-[9vh] h-[9vh] md:w-[8vw] md:h-[8vw] border-3 border-[#EC4E20] ">
 
          <h1 class=" text-[5vw] text-[#F6F8FF] font-bold ">{{ chain }}</h1>
        </div>
    </div>
+    <button class=" rounded-full bg-[#272D2D] w-[4vh] h-[4vh] md:w-[3.5vw] md:h-[3.5vw] cursor-pointer hover:scale-110 " (click)="openSettings()">
+      <img class=" md:w-[3vw] md:h-[3vw] ml-auto mr-auto w-[3.5vh] h-[3.5vh] " src="../../assets/ProfileIcons/settings.png">
+    </button>
   </div>
 
 

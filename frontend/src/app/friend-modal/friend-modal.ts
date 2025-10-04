@@ -52,6 +52,9 @@ export class FriendModal {
     return `${this.fname} ${this.lname}`;
   }
 
+  openSettings(){
+
+  }
 
   goToChat(){
     this.router.navigate(['/chat'], { queryParams: {friendID: this.id, friendUsername: this.username}});
