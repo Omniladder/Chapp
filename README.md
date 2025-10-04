@@ -105,7 +105,6 @@ WIP
 # Future Goals
 
 - Friend Deletion
-- Back Button UI
 - Enable Redis In-memory Caching
 - Terraform based Cloud Deployment
 - Implementing Rate limiting for Security

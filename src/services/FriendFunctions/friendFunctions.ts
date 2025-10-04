@@ -4,6 +4,7 @@ import { Op } from 'sequelize';
 
 import querySchema from './querySchema';
 import addFriendSchema from './addFriendSchema';
+import removeFriendSchema from './removeFriendSchema';
 
 
 // DB ORM Object
@@ -11,6 +12,7 @@ import { User } from "../../models/userSchema";
 import { Friend } from '../../models/friendSchema';
 import session from 'express-session';
 import { number, success } from 'zod';
+import { Conversation } from '../../models';
 
 type user = {
     userID: number;
@@ -266,5 +268,58 @@ export async function getFriends(req: any): Promise<any>{
 
     return {success: true, data: listOfFriends, message: "RetrivedFriends", code: 1000}
 }
+
+
+export async function removeFriend(req: Request){
+    const friend1 = req.session.userID;
+    const friend2Data = removeFriendSchema.safeParse(req.body)
+    if(!friend2Data){
+        return {success: false, message: "Failed to Decode Inputted Body", code: 1001}
+    }
+    const friend2 = friend2Data.data?.friendID;
+
+    let friendDelRes = Friend.destroy({
+        where: {
+            [Op.or]: [
+                { 
+                    [Op.and]: [
+                        {friendID1: friend1 },
+                        {friendID2: friend2 }
+                    ]
+                },
+                {  
+                    [Op.and]: [
+                        {friendID1: friend2 },
+                        {friendID2: friend1 }
+                    ]
+                }
+            ]
+        }
+    })
+
+    await Conversation.destroy({
+        where: {
+            [Op.or]: [
+                { 
+                    [Op.and]: [
+                        {senderID: friend1 },
+                        {receiverID: friend2 }
+                    ]
+                },
+                {  
+                    [Op.and]: [
+                        {senderID: friend2 },
+                        {receiverID: friend1 }
+                    ]
+                }
+            ]
+        }
+    })
+
+    await friendDelRes;
+
+    return {success: true, message: "RetrivedFriends", code: 1000}
+}
+
 
 

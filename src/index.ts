@@ -2,7 +2,7 @@ import express, { Request, response, Response } from 'express';
 
 import { addUser, login } from "./services/Auth/auth";
 import { deleteAccount, logout } from "./services/Signout/signout"
-import { queryPeople, addFriend, getFriends } from "./services/FriendFunctions/friendFunctions"
+import { queryPeople, addFriend, getFriends, removeFriend } from "./services/FriendFunctions/friendFunctions"
 import { sendMessage, getMessages } from './services/Messages/messages'
 
 import { googleAuth, googleToken, githubAuth, githubToken } from './services/Auth/oauth'
@@ -89,6 +89,17 @@ app.get('/api/githubToken', async (req: Request, res: Response) => {
     await githubToken(req, res);
 });
 
+app.delete('/api/removeFriend', async (req: Request, res: Response) => {
+    console.log("Deleting a Friend");
+    let output = await removeFriend(req);
+    if (!output.success){
+        return res.status(400).json(output)
+    }
+    else {
+        return res.status(201).json(output)
+    }
+});
+
 app.delete('/api/delete', async (req: Request, res: Response) => {
     console.log("Received Account Deletion");
     let output = await deleteAccount(req);
@@ -96,7 +107,7 @@ app.delete('/api/delete', async (req: Request, res: Response) => {
         return res.status(400).json(output);
     }
     else{
-       return res.status(201).json(output);
+        return res.status(201).json(output);
     }
 });
 

@@ -16,8 +16,17 @@ export class FriendSettingsModal {
       this.showSetting = true;
     }
 
-    removeFriend(){
-      console.log("Removing Friend ", this.id);
+    async removeFriend(){
+      await fetch('/api/removeFriend', {
+        method: 'DELETE',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+        friendID: this.id,
+      })
+      });
     }
 
 
