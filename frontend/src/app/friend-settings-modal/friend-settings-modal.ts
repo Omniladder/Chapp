@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { DialogModule } from 'primeng/dialog';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'friend-settings-modal',
@@ -10,6 +11,9 @@ import { DialogModule } from 'primeng/dialog';
 export class FriendSettingsModal {
 
     @Input() id!: number;
+
+
+    constructor(private cdr: ChangeDetectorRef) {}
 
     showSetting = false;
     openSettings(){
@@ -27,6 +31,8 @@ export class FriendSettingsModal {
         friendID: this.id,
       })
       });
+      this.showSetting = false;
+      this.cdr.detectChanges();
     }
 
 
