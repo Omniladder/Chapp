@@ -35,38 +35,22 @@ export class ProfileModal {
     this.showProfile=false;
   }
 
-  confirmDelete(event: Event) {
-        this.confirmationService.confirm({
-            target: event.currentTarget as EventTarget,
-            message: 'Are you sure you want to delete your account?',
-            icon: 'pi pi-exclamation-triangle',
-            rejectButtonProps: {
-                label: 'Cancel',
-                severity: 'secondary',
-                outlined: true
-            },
-            acceptButtonProps: {
-                label: 'Delete',
-                severity: 'danger'
-            },
-            accept: async () => {
-              await this.authService.checkSession();
-              let response = await fetch('/api/delete', {
-                method: 'DELETE',
-                credentials: 'include'
-              });
+  async deleteAccount() {
+    await this.authService.checkSession();
+    let response = await fetch('/api/delete', {
+      method: 'DELETE',
+      credentials: 'include'
+    });
 
-              if(response.ok){
-                this.router.navigate(['/login']);
-              }
-              else{
-                console.error("Delete Failed ", response.status);
-                console.error(response);
-              }
-            },
-            reject: () => {
-            }
-        });
+    if(response.ok){
+      this.router.navigate(['/login']);
     }
-
+    else{
+      console.error("Delete Failed ", response.status);
+      console.error(response);
+    }
+  }
 }
+
+
+
