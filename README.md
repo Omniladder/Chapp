@@ -34,7 +34,7 @@
 # Features
 
 - Account Creation, Deletion, and Managements
-- Simple Friend Request System
+- Simple Friend Request and Deletion System
 - Accurate achievements displaying relationship aspects
 - Simple intuitive texting interface
 - Responsive Design for Cross-platform usage
@@ -104,7 +104,6 @@ WIP
 
 # Future Goals
 
-- Friend Deletion
 - Enable Redis In-memory Caching
 - Terraform based Cloud Deployment
 - Implementing Rate limiting for Security
