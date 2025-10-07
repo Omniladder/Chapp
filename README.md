@@ -104,6 +104,7 @@ WIP
 
 # Future Goals
 
+- Write Github Actions DevOps Test
 - Enable Redis In-memory Caching
 - Terraform based Cloud Deployment
 - Implementing Rate limiting for Security
