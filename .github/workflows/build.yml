@@ -1,0 +1,4 @@
+name: build-action
+on:
+  push:
+    branches: [master]
