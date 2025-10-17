@@ -43,6 +43,7 @@
 - Early K8s and Scalability Support
 - Colorful & Easy to Read User Interface
 - Range of Hosting Options (Native, Docker Compose, K8s)
+- Write Github Actions CI/CD Testing
 
 # Technologies
 
@@ -104,7 +105,6 @@ WIP
 
 # Future Goals
 
-- Write Github Actions DevOps Test
 - Enable Redis In-memory Caching
 - Terraform based Cloud Deployment
 - Implementing Rate limiting for Security
