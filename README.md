@@ -44,7 +44,7 @@
 - Early K8s and Scalability Support
 - Colorful & Easy to Read User Interface
 - Range of Hosting Options (Native, Docker Compose, K8s)
-- Write Github Actions CI/CD Testing
+- Github Actions CI/CD Testing
 
 # Technologies
 
@@ -113,7 +113,6 @@ WIP
 - Web Socket Based Messaging System
 - Accurate and Easy to Use Setup Guide
 - Reducing and Optimizing Queries
-- Up to Date Mutual Best Friends
 
 # License
 
