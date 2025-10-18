@@ -40,11 +40,11 @@ export async function calculateAchievements(userID: number): Promise<void>{
 
     let currentContext: AchievementContext = makeContext(userID);
 
-    await setFriendOfFriend(currentContext),
-    await setTop5(currentContext),
-    await setBestFriend(currentContext),
-    await setMutualBestFriend(currentContext),
-    await setRivalFriend(currentContext),
+    await setFriendOfFriend(currentContext);
+    await setTop5(currentContext);
+    await setBestFriend(currentContext);
+    await setMutualBestFriend(currentContext);
+    await setRivalFriend(currentContext);
 }
 
 /**
@@ -90,6 +90,10 @@ export async function getFriendsID(currentContext: AchievementContext): Promise<
    })).map(f => f.friendID2);
 
     return currentContext.friendArray
+}
+
+export async function getUserID(currentContext: AchievementContext): Promise<number>{
+    return currentContext.userID;
 }
 
 /**
@@ -180,6 +184,72 @@ async function getRivalFriendsID(currentContext: AchievementContext): Promise<nu
 
 
 // SETTER METHODS FOR EACH ACHIEVEMENT
+
+async function setFriendOfFriend(currentContext: AchievementContext): Promise<void> {
+    await Friend.update(
+        {isFoF: true},
+        {
+            where: {
+                friendID1: (await getUserID(currentContext)),
+                friendID2: {[Op.in]: (await getFriendOfFriendID(currentContext))}
+            }
+        }
+    );
+}
+
+async function setRivalFriend(currentContext: AchievementContext): Promise<void> {
+    await Friend.update(
+        {isRival: true},
+        {
+            where: {
+                friendID1: (await getUserID(currentContext)),
+                friendID2: {[Op.in]: getRivalFriendsID(currentContext) }
+            }
+        }
+    );
+}
+
+async function setTop5(currentContext: AchievementContext): Promise<void> {
+    await Friend.update(
+        {isTop: true},
+        {
+            where: {
+                friendID1: (await getUserID(currentContext)),
+                friendID2: {[Op.in]: (await getTop5FriendID(currentContext))}
+            }
+        }
+    );
+}
+
+async function setBestFriend(currentContext: AchievementContext): Promise<void> {
+    await Friend.update(
+        {isBest: true},
+        {
+            where: {
+                friendID1: (await getUserID(currentContext)),
+                friendID2: (await getBestFriendID(currentContext))
+            }
+        }
+    );
+}
+
+async function setMutualBestFriend(currentContext: AchievementContext): Promise<void> {
+    if (!getMutualBestFriendID(currentContext)) return;
+
+    await Friend.update(
+        {isMutualBest: true},
+        {
+            where: {
+                friendID1: (await getUserID(currentContext)),
+                friendID2: (await getMutualBestFriendID(currentContext))
+            }
+        }
+    );
+}
+
+
+
+
 
 
 
