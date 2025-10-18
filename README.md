@@ -112,7 +112,6 @@ WIP
 - Implementing Rate limiting for Security
 - Web Socket Based Messaging System
 - Accurate and Easy to Use Setup Guide
-- Reducing and Optimizing Queries
 
 # License
 

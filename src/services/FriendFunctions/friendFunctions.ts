@@ -108,24 +108,23 @@ export async function getFriends(req: any): Promise<any>{
         return {success: false, data: null, message: "No User ID Found", code: 1001}
     }
 
-   await calculateAchievements(req.session.userID);
-
-    let currentDate = new Date();
-    await Friend.update({
-        streak: 0
-    }, {
-        where: {
-            [Op.or]: [
-                {friendID1: req.session.userID, endStreakDate: { [Op.lt]: currentDate }},
-                {friendID2: req.session.userID, endStreakDate: { [Op.lt]: currentDate }}
-            ]
-        }
-    })
+    const USER_ID = req.session.userID;
 
     console.log("Get Friends Called");
-    const listOfFriends = await Friend.findAll({
+    await calculateAchievements(USER_ID);
+    await updateStreaks(USER_ID);
+
+    const LIST_OF_FRIENDS = await getListofFriends(USER_ID)
+
+    return {success: true, data: LIST_OF_FRIENDS, message: "RetrivedFriends", code: 1000}
+}
+
+
+
+async function getListofFriends(USER_ID: number): Promise<Friend[]> {
+    const LIST_OF_FRIENDS = await Friend.findAll({
         where:{
-            friendID1: req.session.userID
+            friendID1: USER_ID
         },
         include: [{
             model: User,
@@ -134,12 +133,26 @@ export async function getFriends(req: any): Promise<any>{
         }],
         attributes: ['missedMessages', 'streak', 'isFoF', 'isRival', 'isTop', 'isBest', 'isMutualBest'],
         order: [['score', 'DESC']]
-    })
+    });
 
-
-    return {success: true, data: listOfFriends, message: "RetrivedFriends", code: 1000}
+    return LIST_OF_FRIENDS;
 }
 
+
+
+async function updateStreaks(userID: number): Promise<void> {
+    let currentDate = new Date();
+    await Friend.update({
+        streak: 0
+    }, {
+        where: {
+            [Op.or]: [
+                {friendID1: userID, endStreakDate: { [Op.lt]: currentDate }},
+                {friendID2: userID, endStreakDate: { [Op.lt]: currentDate }}
+            ]
+        }
+    });
+}
 
 export async function removeFriend(req: Request){
     const friend1 = req.session.userID;
