@@ -9,7 +9,7 @@
 */
 
 import { Friend } from '../../models/friendSchema';
-import { Op, where } from 'sequelize';
+import { Op } from 'sequelize';
 
 
 // Context Data Object used to Cache Results
@@ -26,7 +26,7 @@ type AchievementContext = {
     mutualBestFriend?: number;
 }
 
-function makeContext(userID: number): AchievementContext {
+export function makeContext(userID: number): AchievementContext {
     let newContext: AchievementContext = {userID, foundMutualBestie: false}
     return newContext;
 }
@@ -169,7 +169,7 @@ async function getTop5FriendID(currentContext: AchievementContext): Promise<numb
 async function getRivalFriendsID(currentContext: AchievementContext): Promise<number[]> {
     if (currentContext.rivalFriendArray) return currentContext.rivalFriendArray;
 
-    const BEST_FRIEND_ID = getBestFriendID(currentContext);
+    const BEST_FRIEND_ID = await getBestFriendID(currentContext);
 
     const RIVAL_FRIEND_IDS = (await Friend.findAll({
         where: {
@@ -186,76 +186,103 @@ async function getRivalFriendsID(currentContext: AchievementContext): Promise<nu
 // SETTER METHODS FOR EACH ACHIEVEMENT
 
 async function setFriendOfFriend(currentContext: AchievementContext): Promise<void> {
+    const USER_ID = await getUserID(currentContext);
+    const FOF_List = await getFriendOfFriendID(currentContext);
+
+    if (!FOF_List || !USER_ID) {
+        return;
+    }
+
     await Friend.update(
         {isFoF: true},
         {
             where: {
-                friendID1: (await getUserID(currentContext)),
-                friendID2: {[Op.in]: (await getFriendOfFriendID(currentContext))}
+                friendID1: USER_ID,
+                friendID2: {[Op.in]: FOF_List}
             }
         }
     );
 }
 
 async function setRivalFriend(currentContext: AchievementContext): Promise<void> {
+
+    const USER_ID = await getUserID(currentContext);
+    const RIVAL_FRIEND_IDS = await getRivalFriendsID(currentContext);
+
+    if (!USER_ID || !RIVAL_FRIEND_IDS) {
+        return;
+    }
+
     await Friend.update(
         {isRival: true},
         {
             where: {
-                friendID1: (await getUserID(currentContext)),
-                friendID2: {[Op.in]: getRivalFriendsID(currentContext) }
+                friendID1: USER_ID,
+                friendID2: {[Op.in]: RIVAL_FRIEND_IDS }
             }
         }
     );
 }
 
 async function setTop5(currentContext: AchievementContext): Promise<void> {
+
+    const USER_ID = await getUserID(currentContext);
+    const TOP_5_FRIENDS = await getTop5FriendID(currentContext);
+
+    if (!USER_ID || !TOP_5_FRIENDS) {
+        return;
+    }
+
+
     await Friend.update(
         {isTop: true},
         {
             where: {
-                friendID1: (await getUserID(currentContext)),
-                friendID2: {[Op.in]: (await getTop5FriendID(currentContext))}
+                friendID1: USER_ID,
+                friendID2: {[Op.in]: TOP_5_FRIENDS}
             }
         }
     );
 }
 
 async function setBestFriend(currentContext: AchievementContext): Promise<void> {
+
+    const USER_ID = await getUserID(currentContext);
+    const BEST_FRIEND_ID = await getBestFriendID(currentContext);
+
+    if (!USER_ID || !BEST_FRIEND_ID) {
+        return;
+    }
+
     await Friend.update(
         {isBest: true},
         {
             where: {
-                friendID1: (await getUserID(currentContext)),
-                friendID2: (await getBestFriendID(currentContext))
+                friendID1: USER_ID,
+                friendID2: BEST_FRIEND_ID
             }
         }
     );
 }
 
 async function setMutualBestFriend(currentContext: AchievementContext): Promise<void> {
-    if (!getMutualBestFriendID(currentContext)) return;
+
+    const USER_ID = await getUserID(currentContext);
+    const MUTUAL_FRIEND_ID = await getMutualBestFriendID(currentContext);
+
+    if (!USER_ID || !MUTUAL_FRIEND_ID) {
+        return;
+    }
 
     await Friend.update(
         {isMutualBest: true},
         {
             where: {
-                friendID1: (await getUserID(currentContext)),
-                friendID2: (await getMutualBestFriendID(currentContext))
+                friendID1: USER_ID,
+                friendID2: MUTUAL_FRIEND_ID
             }
         }
     );
 }
-
-
-
-
-
-
-
-
-
-
-
 
 

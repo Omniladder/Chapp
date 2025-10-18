@@ -5,7 +5,7 @@ import { Op } from 'sequelize';
 import querySchema from './querySchema';
 import addFriendSchema from './addFriendSchema';
 import removeFriendSchema from './removeFriendSchema';
-import { calculateAchievements, getFriendsID } from './getAchievements'
+import { calculateAchievements, getFriendsID, makeContext } from './getAchievements'
 
 // DB ORM Object
 import { User } from "../../models/userSchema";
@@ -13,7 +13,6 @@ import { Friend } from '../../models/friendSchema';
 import { Conversation } from '../../models';
 
 
-// TODO: Move Queries to calculateAchievements
 export async function queryPeople(req: Request){
     
     const schemaTest = querySchema.safeParse(req.body);
@@ -25,7 +24,8 @@ export async function queryPeople(req: Request){
     let queryData = schemaTest.data;
     let queriedUsers = [];
 
-    let friendList = await getFriendsID(req.session.userID!);
+    const NEW_CONTEXT = makeContext(req.session.userID!)
+    let friendList = await getFriendsID(NEW_CONTEXT);
     friendList.push(req.session.userID!)
 
     let friendsOfFriendsList = await Friend.findAll({
