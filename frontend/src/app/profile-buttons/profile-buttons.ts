@@ -1,4 +1,4 @@
-import { Component, inject, Output, EventEmitter } from '@angular/core';
+import { Component, inject, Output, EventEmitter, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProfileModal } from '../profile-modal/profile-modal';
 import { PopoverModule } from 'primeng/popover';
@@ -16,6 +16,12 @@ export class ProfileButtons {
 
 
   @Output() onAdd = new EventEmitter<void>();
+
+  @ViewChild(AddFriendModal) friendModal!: AddFriendModal;
+
+  async updateFriends() {
+    await this.friendModal.getUsers()
+  }
 
   addTriggered(){
     this.onAdd.emit();
