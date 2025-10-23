@@ -1,9 +1,10 @@
-import { ChangeDetectorRef, Component, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, Output, ViewChild } from '@angular/core';
 import { WebsiteHeader } from '../website-header/website-header';
 import { ProfileButtons } from '../profile-buttons/profile-buttons';
 import { FriendModal } from '../friend-modal/friend-modal';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../services/auth.service';
+import { profile } from 'node:console';
 
 type Connection = {
   missedMessages: number;
@@ -42,9 +43,15 @@ export class HomeScreen {
 
   friends! : Connection[];
 
+  @ViewChild(ProfileButtons) profileButtons!: ProfileButtons;
 
   async ngOnInit():Promise<void> {
     await this.getFriends();
+  }
+
+  async updateFriends(){
+    await this.getFriends();
+    await this.profileButtons.updateFriends();
   }
 
   async getFriends(){

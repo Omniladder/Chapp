@@ -57,6 +57,7 @@ export class AddFriendModal {
 
   async getUsers(queryTerm?: string): Promise<void>{
 
+    console.log("Get Users Called");
   let hasQuery = true;
   if(this.query === ''){
     hasQuery = false;
