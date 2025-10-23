@@ -20,7 +20,6 @@ export class ProfileButtons {
   @ViewChild(AddFriendModal) friendModal!: AddFriendModal;
 
   async updateFriends() {
-    console.log("Profile Buttons Called");
     await this.friendModal.getUsers()
   }
 
