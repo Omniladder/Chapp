@@ -7,10 +7,13 @@ import addFriendSchema from './addFriendSchema';
 import removeFriendSchema from './removeFriendSchema';
 import { calculateAchievements, getFriendsID, makeContext } from './getAchievements'
 
+import {redis,  createKey } from '../../lib/cache';
+
 // DB ORM Object
 import { User } from "../../models/userSchema";
 import { Friend } from '../../models/friendSchema';
 import { Conversation } from '../../models';
+import { create } from 'node:domain';
 
 
 export async function queryPeople(req: Request){
@@ -24,9 +27,16 @@ export async function queryPeople(req: Request){
     let queryData = schemaTest.data;
     let queriedUsers = [];
 
+    const CACHED_USER_DATA = await redis.get(createKey("queryPeople", String(req.session.userID!), queryData.searchTerm))
+    if(CACHED_USER_DATA) {
+        const CACHED_USERS: User[] = JSON.parse(CACHED_USER_DATA)
+        return {success: true, data: CACHED_USERS, message: 'Queried Cached', code: 1000};
+    }
+
     const NEW_CONTEXT = makeContext(req.session.userID!)
     let friendList = await getFriendsID(NEW_CONTEXT);
     friendList.push(req.session.userID!)
+
 
     let friendsOfFriendsList = await Friend.findAll({
         attributes: ['friendID2'],
@@ -34,6 +44,8 @@ export async function queryPeople(req: Request){
             friendID1:{[Op.in]: friendList}
         }
     });
+
+    
 
     try{
         if(!queryData.hasSearchTerm)
@@ -72,6 +84,9 @@ export async function queryPeople(req: Request){
       isFoF: fofSet.has(u.id)
     }));
 
+    await redis.set(createKey("queryPeople", String(req.session.userID!), queryData.searchTerm), JSON.stringify(users))
+
+
     
     return {success: true, data: users, message: 'Successful Queried', code: 1000};
 }
@@ -96,6 +111,13 @@ export async function addFriend(req: Request){
        'friendID2': req.session.userID,
     });
     await connection;
+
+    const QUERY_PATTERN = createKey("queryPeople", String(req.session.userID), "*")
+    const QUERY_KEYS = await redis.keys(QUERY_PATTERN)
+    await redis.del(QUERY_KEYS)
+
+    const FRIEND_KEY = createKey("getListofFriends", String(req.session.userID))
+    await redis.del(FRIEND_KEY)
 
 
     return {success: true, message: 'Successfully Added Friend', code: 1000};
@@ -122,6 +144,13 @@ export async function getFriends(req: any): Promise<any>{
 
 
 async function getListofFriends(USER_ID: number): Promise<Friend[]> {
+    
+    const CACHED_USERS_DATA = await redis.get(createKey("getListofFriends", String(USER_ID)));
+    if(CACHED_USERS_DATA) {
+        const USER_DATA: Friend[] = JSON.parse(CACHED_USERS_DATA);
+        return USER_DATA;
+    }
+
     const LIST_OF_FRIENDS = await Friend.findAll({
         where:{
             friendID1: USER_ID
@@ -135,6 +164,7 @@ async function getListofFriends(USER_ID: number): Promise<Friend[]> {
         order: [['score', 'DESC']]
     });
 
+    await redis.set(createKey("getListofFriends", String(USER_ID)), JSON.stringify(LIST_OF_FRIENDS));
     return LIST_OF_FRIENDS;
 }
 
@@ -201,6 +231,17 @@ export async function removeFriend(req: Request){
     })
 
     await friendDelRes;
+
+    // TODO: Delete Redis Cache here Both Friends and Query
+
+    const QUERY_PATTERN = createKey("queryPeople", String(req.session.userID), "*")
+    const QUERY_KEYS = await redis.keys(QUERY_PATTERN)
+    await redis.del(QUERY_KEYS)
+
+    const FRIEND_KEY = createKey("getListofFriends", String(req.session.userID))
+    await redis.del(FRIEND_KEY)
+
+
 
     return {success: true, message: "RetrivedFriends", code: 1000}
 }

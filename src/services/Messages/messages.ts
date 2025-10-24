@@ -6,7 +6,7 @@ import { Friend, User} from '../../models';
 
 import sendMessageSchema from './sendMessageSchema';
 import getMessageSchema from './getMessageSchema'
-
+import { createKey, redis } from '../../lib/cache';
 
 export async function sendMessage(req: any): Promise<any> {
 
@@ -79,6 +79,10 @@ export async function sendMessage(req: any): Promise<any> {
             }
         })
     }
+
+    await redis.del(createKey("getMessages", req.session.userID, req.session.receiverID))
+    
+
     return {success: true, message: "Received Message", code: 1000};
 }
 
@@ -89,6 +93,13 @@ export async function getMessages(req: any){
     if(!(schemaTest.success)){
         console.error("Failed To Parse Get Message Schema"); 
         return {success: false, data: null, message: "Failed to Parse Schema", code: 1001};
+    }
+
+    //TODO: Add Redis Cache Here
+    const CACHED_MESSAGE_DATA = await redis.get(createKey("getMessages", req.session.userID, req.session.receiverID))
+    if(CACHED_MESSAGE_DATA){
+        const CACHED_MESSAGE = JSON.parse(CACHED_MESSAGE_DATA);
+        return {success: true, data: CACHED_MESSAGE, message: "Received Message", code: 1000};
     }
 
     let messages = await Conversation.findAll({
@@ -113,6 +124,7 @@ export async function getMessages(req: any){
     );
     console.log("Reset Missed Messages");
 
+    await redis.set(createKey("getMessages", req.session.userID, req.session.receiverID), JSON.stringify(messages))
 
     return {success: true, data: messages, message: "Received Message", code: 1000};
 }
