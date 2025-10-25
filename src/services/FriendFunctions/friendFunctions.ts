@@ -152,7 +152,7 @@ async function getListofFriends(USER_ID: number): Promise<Friend[]> {
         return USER_DATA;
     }
 
-    // TODO: Stop Query From Failing
+    console.log("Collecting List of Friends");
     const LIST_OF_FRIENDS = await Friend.findAll({
         where:{
             friendID1: USER_ID
@@ -165,6 +165,7 @@ async function getListofFriends(USER_ID: number): Promise<Friend[]> {
         attributes: ['missedMessages', 'streak', 'isFoF', 'isRival', 'isTop', 'isBest', 'isMutualBest', 'score'],
         order: [['score', 'DESC']]
     });
+    console.log("Collected Friend List");
 
     await redis.set(createKey("getListofFriends", String(USER_ID)), JSON.stringify(LIST_OF_FRIENDS));
     return LIST_OF_FRIENDS;
