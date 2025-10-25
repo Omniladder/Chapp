@@ -40,6 +40,7 @@
 - Simple intuitive texting interface
 - Responsive Design for Cross-platform usage
 - OAuth with Github and Google Support
+- Redis Based Caching
 - Complete Modular and Containerized Infrastructure
 - Early K8s and Scalability Support
 - Colorful & Easy to Read User Interface
@@ -73,6 +74,7 @@
 - **DevOps / Infrastructure** 
     - Docker
     - Docker Compose
+    - Redis
     - Github Actions
     - Kubernetes / k8s
     - Proxmox
@@ -107,7 +109,6 @@ WIP
 
 # Future Goals
 
-- Enable Redis In-memory Caching
 - Terraform based Cloud Deployment
 - Implementing Rate limiting for Security
 - Web Socket Based Messaging System

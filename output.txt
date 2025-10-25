@@ -1,0 +1,180 @@
+Attaching to backend-1, db-1, frontend-1, nginx-1, redis-1
+redis-1  | Starting Redis Server
+frontend-1  | /docker-entrypoint.sh: /docker-entrypoint.d/ is not empty, will attempt to perform configuration
+frontend-1  | /docker-entrypoint.sh: Looking for shell scripts in /docker-entrypoint.d/
+frontend-1  | /docker-entrypoint.sh: Launching /docker-entrypoint.d/10-listen-on-ipv6-by-default.sh
+frontend-1  | 10-listen-on-ipv6-by-default.sh: info: Getting the checksum of /etc/nginx/conf.d/default.conf
+redis-1     | 1:C 25 Oct 2025 04:48:29.940 # WARNING Memory overcommit must be enabled! Without it, a background save or replication may fail under low memory condition. Being disabled, it can also cause failures without low memory condition, see https://github.com/jemalloc/jemalloc/issues/1328. To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl vm.overcommit_memory=1' for this to take effect.
+redis-1     | 1:C 25 Oct 2025 04:48:29.940 * oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+redis-1     | 1:C 25 Oct 2025 04:48:29.940 * Redis version=8.2.2, bits=64, commit=00000000, modified=1, pid=1, just started
+redis-1     | 1:C 25 Oct 2025 04:48:29.940 * Configuration loaded
+redis-1     | 1:M 25 Oct 2025 04:48:29.940 * Increased maximum number of open files to 10032 (it was originally set to 1024).
+redis-1     | 1:M 25 Oct 2025 04:48:29.940 * monotonic clock: POSIX clock_gettime
+redis-1     | 1:M 25 Oct 2025 04:48:29.941 * Running mode=standalone, port=6379.
+redis-1     | 1:M 25 Oct 2025 04:48:29.941 * <bf> RedisBloom version 8.2.3 (Git=unknown)
+redis-1     | 1:M 25 Oct 2025 04:48:29.941 * <bf> Registering configuration options: [
+redis-1     | 1:M 25 Oct 2025 04:48:29.941 * <bf> 	{ bf-error-rate       :      0.01 }
+redis-1     | 1:M 25 Oct 2025 04:48:29.941 * <bf> 	{ bf-initial-size     :       100 }
+redis-1     | 1:M 25 Oct 2025 04:48:29.941 * <bf> 	{ bf-expansion-factor :         2 }
+redis-1     | 1:M 25 Oct 2025 04:48:29.941 * <bf> 	{ cf-bucket-size      :         2 }
+redis-1     | 1:M 25 Oct 2025 04:48:29.941 * <bf> 	{ cf-initial-size     :      1024 }
+redis-1     | 1:M 25 Oct 2025 04:48:29.941 * <bf> 	{ cf-max-iterations   :        20 }
+redis-1     | 1:M 25 Oct 2025 04:48:29.941 * <bf> 	{ cf-expansion-factor :         1 }
+redis-1     | 1:M 25 Oct 2025 04:48:29.941 * <bf> 	{ cf-max-expansions   :        32 }
+redis-1     | 1:M 25 Oct 2025 04:48:29.941 * <bf> ]
+redis-1     | 1:M 25 Oct 2025 04:48:29.941 * Module 'bf' loaded from /usr/local/lib/redis/modules//redisbloom.so
+redis-1     | 1:M 25 Oct 2025 04:48:29.942 * <search> Redis version found by RedisSearch : 8.2.2 - oss
+redis-1     | 1:M 25 Oct 2025 04:48:29.942 * <search> RediSearch version 8.2.5 (Git=222ad3b)
+redis-1     | 1:M 25 Oct 2025 04:48:29.943 * <search> Low level api version 1 initialized successfully
+redis-1     | 1:M 25 Oct 2025 04:48:29.943 * <search> gc: ON, prefix min length: 2, min word length to stem: 4, prefix max expansions: 200, query timeout (ms): 500, timeout policy: return, cursor read size: 1000, cursor max idle (ms): 300000, max doctable size: 1000000, max number of search results:  1000000, 
+redis-1     | 1:M 25 Oct 2025 04:48:29.943 * <search> Initialized thread pools!
+redis-1     | 1:M 25 Oct 2025 04:48:29.943 * <search> Disabled workers threadpool of size 0
+redis-1     | 1:M 25 Oct 2025 04:48:29.943 * <search> Subscribe to config changes
+redis-1     | 1:M 25 Oct 2025 04:48:29.943 * <search> Enabled role change notification
+redis-1     | 1:M 25 Oct 2025 04:48:29.943 * <search> Cluster configuration: AUTO partitions, type: 0, coordinator timeout: 0ms
+redis-1     | 1:M 25 Oct 2025 04:48:29.943 * <search> Register write commands
+redis-1     | 1:M 25 Oct 2025 04:48:29.943 * Module 'search' loaded from /usr/local/lib/redis/modules//redisearch.so
+redis-1     | 1:M 25 Oct 2025 04:48:29.943 * <timeseries> RedisTimeSeries version 80200, git_sha=1439d4a439ca9c063e6ef124a510abff09a5d493
+redis-1     | 1:M 25 Oct 2025 04:48:29.943 * <timeseries> Redis version found by RedisTimeSeries : 8.2.2 - oss
+redis-1     | 1:M 25 Oct 2025 04:48:29.943 * <timeseries> Registering configuration options: [
+redis-1     | 1:M 25 Oct 2025 04:48:29.943 * <timeseries> 	{ ts-compaction-policy   :              }
+redis-1     | 1:M 25 Oct 2025 04:48:29.943 * <timeseries> 	{ ts-num-threads         :            3 }
+redis-1     | 1:M 25 Oct 2025 04:48:29.943 * <timeseries> 	{ ts-retention-policy    :            0 }
+redis-1     | 1:M 25 Oct 2025 04:48:29.943 * <timeseries> 	{ ts-duplicate-policy    :        block }
+redis-1     | 1:M 25 Oct 2025 04:48:29.943 * <timeseries> 	{ ts-chunk-size-bytes    :         4096 }
+redis-1     | 1:M 25 Oct 2025 04:48:29.943 * <timeseries> 	{ ts-encoding            :   compressed }
+redis-1     | 1:M 25 Oct 2025 04:48:29.943 * <timeseries> 	{ ts-ignore-max-time-diff:            0 }
+redis-1     | 1:M 25 Oct 2025 04:48:29.943 * <timeseries> 	{ ts-ignore-max-val-diff :     0.000000 }
+redis-1     | 1:M 25 Oct 2025 04:48:29.943 * <timeseries> ]
+redis-1     | 1:M 25 Oct 2025 04:48:29.943 * <timeseries> Detected redis oss
+redis-1     | 1:M 25 Oct 2025 04:48:29.943 * <timeseries> Enabled diskless replication
+redis-1     | 1:M 25 Oct 2025 04:48:29.943 * Module 'timeseries' loaded from /usr/local/lib/redis/modules//redistimeseries.so
+redis-1     | 1:M 25 Oct 2025 04:48:29.943 * <ReJSON> Created new data type 'ReJSON-RL'
+redis-1     | 1:M 25 Oct 2025 04:48:29.944 * <ReJSON> version: 80201 git sha: unknown branch: unknown
+redis-1     | 1:M 25 Oct 2025 04:48:29.944 * <ReJSON> Exported RedisJSON_V1 API
+redis-1     | 1:M 25 Oct 2025 04:48:29.944 * <ReJSON> Exported RedisJSON_V2 API
+redis-1     | 1:M 25 Oct 2025 04:48:29.944 * <ReJSON> Exported RedisJSON_V3 API
+redis-1     | 1:M 25 Oct 2025 04:48:29.944 * <ReJSON> Exported RedisJSON_V4 API
+redis-1     | 1:M 25 Oct 2025 04:48:29.944 * <ReJSON> Exported RedisJSON_V5 API
+redis-1     | 1:M 25 Oct 2025 04:48:29.944 * <ReJSON> Enabled diskless replication
+redis-1     | 1:M 25 Oct 2025 04:48:29.944 * <ReJSON> Initialized shared string cache, thread safe: false.
+redis-1     | 1:M 25 Oct 2025 04:48:29.944 * Module 'ReJSON' loaded from /usr/local/lib/redis/modules//rejson.so
+redis-1     | 1:M 25 Oct 2025 04:48:29.944 * <search> Acquired RedisJSON_V5 API
+redis-1     | 1:M 25 Oct 2025 04:48:29.944 * Server initialized
+redis-1     | 1:M 25 Oct 2025 04:48:29.944 * <search> Loading event starts
+redis-1     | 1:M 25 Oct 2025 04:48:29.944 * <search> Enabled workers threadpool of size 4
+redis-1     | 1:M 25 Oct 2025 04:48:29.944 * Loading RDB produced by version 8.2.2
+redis-1     | 1:M 25 Oct 2025 04:48:29.944 * RDB age 47 seconds
+redis-1     | 1:M 25 Oct 2025 04:48:29.944 * RDB memory usage when created 0.99 Mb
+redis-1     | 1:M 25 Oct 2025 04:48:29.944 * Done loading RDB, keys loaded: 2, keys expired: 0.
+redis-1     | 1:M 25 Oct 2025 04:48:29.944 * <search> Disabled workers threadpool of size 4
+redis-1     | 1:M 25 Oct 2025 04:48:29.944 * <search> Loading event ends
+redis-1     | 1:M 25 Oct 2025 04:48:29.944 * DB loaded from disk: 0.000 seconds
+redis-1     | 1:M 25 Oct 2025 04:48:29.944 * Ready to accept connections tcp
+frontend-1  | 10-listen-on-ipv6-by-default.sh: info: /etc/nginx/conf.d/default.conf differs from the packaged version
+frontend-1  | /docker-entrypoint.sh: Sourcing /docker-entrypoint.d/15-local-resolvers.envsh
+frontend-1  | /docker-entrypoint.sh: Launching /docker-entrypoint.d/20-envsubst-on-templates.sh
+frontend-1  | /docker-entrypoint.sh: Launching /docker-entrypoint.d/30-tune-worker-processes.sh
+frontend-1  | /docker-entrypoint.sh: Configuration complete; ready for start up
+db-1        | 
+db-1        | PostgreSQL Database directory appears to contain a database; Skipping initialization
+db-1        | 
+nginx-1     | /docker-entrypoint.sh: /docker-entrypoint.d/ is not empty, will attempt to perform configuration
+nginx-1     | /docker-entrypoint.sh: Looking for shell scripts in /docker-entrypoint.d/
+nginx-1     | /docker-entrypoint.sh: Launching /docker-entrypoint.d/10-listen-on-ipv6-by-default.sh
+nginx-1     | 10-listen-on-ipv6-by-default.sh: info: Getting the checksum of /etc/nginx/conf.d/default.conf
+nginx-1     | 10-listen-on-ipv6-by-default.sh: info: /etc/nginx/conf.d/default.conf differs from the packaged version
+nginx-1     | /docker-entrypoint.sh: Sourcing /docker-entrypoint.d/15-local-resolvers.envsh
+nginx-1     | /docker-entrypoint.sh: Launching /docker-entrypoint.d/20-envsubst-on-templates.sh
+nginx-1     | /docker-entrypoint.sh: Launching /docker-entrypoint.d/30-tune-worker-processes.sh
+nginx-1     | /docker-entrypoint.sh: Configuration complete; ready for start up
+backend-1   | [dotenv@17.2.3] injecting env (0) from .env -- tip: ⚙️  write to custom object with { processEnv: myObject }
+backend-1   | Before Init
+backend-1   | Activated User Schema
+backend-1   | Before Init
+backend-1   | Activated Friend Schema
+backend-1   | Before Init
+backend-1   | Activated Conversation Schema
+backend-1   | Connected Friends and Users
+backend-1   | Executing (default): SELECT table_name FROM information_schema.tables WHERE table_schema = 'public' AND table_name = 'users'
+backend-1   | Executing (default): SELECT pk.constraint_type as "Constraint",c.column_name as "Field", c.column_default as "Default",c.is_nullable as "Null", (CASE WHEN c.udt_name = 'hstore' THEN c.udt_name ELSE c.data_type END) || (CASE WHEN c.character_maximum_length IS NOT NULL THEN '(' || c.character_maximum_length || ')' ELSE '' END) as "Type", (SELECT array_agg(e.enumlabel) FROM pg_catalog.pg_type t JOIN pg_catalog.pg_enum e ON t.oid=e.enumtypid WHERE t.typname=c.udt_name) AS "special", (SELECT pgd.description FROM pg_catalog.pg_statio_all_tables AS st INNER JOIN pg_catalog.pg_description pgd on (pgd.objoid=st.relid) WHERE c.ordinal_position=pgd.objsubid AND c.table_name=st.relname) AS "Comment" FROM information_schema.columns c LEFT JOIN (SELECT tc.table_schema, tc.table_name, cu.column_name, tc.constraint_type FROM information_schema.TABLE_CONSTRAINTS tc JOIN information_schema.KEY_COLUMN_USAGE  cu ON tc.table_schema=cu.table_schema and tc.table_name=cu.table_name and tc.constraint_name=cu.constraint_name and tc.constraint_type='PRIMARY KEY') pk ON pk.table_schema=c.table_schema AND pk.table_name=c.table_name AND pk.column_name=c.column_name WHERE c.table_name = 'users' AND c.table_schema = 'public'
+backend-1   | Executing (default): SELECT DISTINCT tc.constraint_name as constraint_name, tc.constraint_schema as constraint_schema, tc.constraint_catalog as constraint_catalog, tc.table_name as table_name,tc.table_schema as table_schema,tc.table_catalog as table_catalog,tc.initially_deferred as initially_deferred,tc.is_deferrable as is_deferrable,kcu.column_name as column_name,ccu.table_schema  AS referenced_table_schema,ccu.table_catalog  AS referenced_table_catalog,ccu.table_name  AS referenced_table_name,ccu.column_name AS referenced_column_name FROM information_schema.table_constraints AS tc JOIN information_schema.key_column_usage AS kcu ON tc.constraint_name = kcu.constraint_name JOIN information_schema.constraint_column_usage AS ccu ON ccu.constraint_name = tc.constraint_name WHERE constraint_type = 'FOREIGN KEY' AND tc.table_name = 'users' AND tc.table_catalog = 'chappdb'
+backend-1   | Executing (default): ALTER TABLE "users" ALTER COLUMN "username" SET NOT NULL;ALTER TABLE "users" ALTER COLUMN "username" DROP DEFAULT;ALTER TABLE "users" ALTER COLUMN "username" TYPE VARCHAR(255);
+backend-1   | Executing (default): ALTER TABLE "users" ALTER COLUMN "password" DROP NOT NULL;ALTER TABLE "users" ALTER COLUMN "password" DROP DEFAULT;ALTER TABLE "users" ALTER COLUMN "password" TYPE VARCHAR(255);
+backend-1   | Executing (default): ALTER TABLE "users" ALTER COLUMN "email" SET NOT NULL;ALTER TABLE "users" ALTER COLUMN "email" DROP DEFAULT;ALTER TABLE "users" ALTER COLUMN "email" TYPE VARCHAR(255);
+backend-1   | Executing (default): ALTER TABLE "users" ALTER COLUMN "fname" DROP NOT NULL;ALTER TABLE "users" ALTER COLUMN "fname" DROP DEFAULT;ALTER TABLE "users" ALTER COLUMN "fname" TYPE VARCHAR(255);
+backend-1   | Executing (default): ALTER TABLE "users" ALTER COLUMN "lname" DROP NOT NULL;ALTER TABLE "users" ALTER COLUMN "lname" DROP DEFAULT;ALTER TABLE "users" ALTER COLUMN "lname" TYPE VARCHAR(255);
+backend-1   | Executing (default): ALTER TABLE "users" ALTER COLUMN "googleID" DROP NOT NULL;ALTER TABLE "users" ALTER COLUMN "googleID" DROP DEFAULT;ALTER TABLE "users"  ADD UNIQUE ("googleID");ALTER TABLE "users" ALTER COLUMN "googleID" TYPE VARCHAR(255) ;
+backend-1   | Executing (default): ALTER TABLE "users" ALTER COLUMN "githubID" DROP NOT NULL;ALTER TABLE "users" ALTER COLUMN "githubID" DROP DEFAULT;ALTER TABLE "users"  ADD UNIQUE ("githubID");ALTER TABLE "users" ALTER COLUMN "githubID" TYPE VARCHAR(255) ;
+backend-1   | Executing (default): SELECT i.relname AS name, ix.indisprimary AS primary, ix.indisunique AS unique, ix.indkey AS indkey, array_agg(a.attnum) as column_indexes, array_agg(a.attname) AS column_names, pg_get_indexdef(ix.indexrelid) AS definition FROM pg_class t, pg_class i, pg_index ix, pg_attribute a WHERE t.oid = ix.indrelid AND i.oid = ix.indexrelid AND a.attrelid = t.oid AND t.relkind = 'r' and t.relname = 'users' GROUP BY i.relname, ix.indexrelid, ix.indisprimary, ix.indisunique, ix.indkey ORDER BY i.relname;
+backend-1   | Executing (default): SELECT table_name FROM information_schema.tables WHERE table_schema = 'public' AND table_name = 'friends'
+backend-1   | Executing (default): SELECT pk.constraint_type as "Constraint",c.column_name as "Field", c.column_default as "Default",c.is_nullable as "Null", (CASE WHEN c.udt_name = 'hstore' THEN c.udt_name ELSE c.data_type END) || (CASE WHEN c.character_maximum_length IS NOT NULL THEN '(' || c.character_maximum_length || ')' ELSE '' END) as "Type", (SELECT array_agg(e.enumlabel) FROM pg_catalog.pg_type t JOIN pg_catalog.pg_enum e ON t.oid=e.enumtypid WHERE t.typname=c.udt_name) AS "special", (SELECT pgd.description FROM pg_catalog.pg_statio_all_tables AS st INNER JOIN pg_catalog.pg_description pgd on (pgd.objoid=st.relid) WHERE c.ordinal_position=pgd.objsubid AND c.table_name=st.relname) AS "Comment" FROM information_schema.columns c LEFT JOIN (SELECT tc.table_schema, tc.table_name, cu.column_name, tc.constraint_type FROM information_schema.TABLE_CONSTRAINTS tc JOIN information_schema.KEY_COLUMN_USAGE  cu ON tc.table_schema=cu.table_schema and tc.table_name=cu.table_name and tc.constraint_name=cu.constraint_name and tc.constraint_type='PRIMARY KEY') pk ON pk.table_schema=c.table_schema AND pk.table_name=c.table_name AND pk.column_name=c.column_name WHERE c.table_name = 'friends' AND c.table_schema = 'public'
+backend-1   | Executing (default): SELECT DISTINCT tc.constraint_name as constraint_name, tc.constraint_schema as constraint_schema, tc.constraint_catalog as constraint_catalog, tc.table_name as table_name,tc.table_schema as table_schema,tc.table_catalog as table_catalog,tc.initially_deferred as initially_deferred,tc.is_deferrable as is_deferrable,kcu.column_name as column_name,ccu.table_schema  AS referenced_table_schema,ccu.table_catalog  AS referenced_table_catalog,ccu.table_name  AS referenced_table_name,ccu.column_name AS referenced_column_name FROM information_schema.table_constraints AS tc JOIN information_schema.key_column_usage AS kcu ON tc.constraint_name = kcu.constraint_name JOIN information_schema.constraint_column_usage AS ccu ON ccu.constraint_name = tc.constraint_name WHERE constraint_type = 'FOREIGN KEY' AND tc.table_name = 'friends' AND tc.table_catalog = 'chappdb'
+backend-1   | Executing (default): ALTER TABLE "friends" ALTER COLUMN "score" SET NOT NULL;ALTER TABLE "friends" ALTER COLUMN "score" SET DEFAULT 0;ALTER TABLE "friends" ALTER COLUMN "score" TYPE INTEGER;
+backend-1   | Executing (default): ALTER TABLE "friends" ALTER COLUMN "missedMessages" SET NOT NULL;ALTER TABLE "friends" ALTER COLUMN "missedMessages" SET DEFAULT 0;ALTER TABLE "friends" ALTER COLUMN "missedMessages" TYPE INTEGER;
+backend-1   | Executing (default): ALTER TABLE "friends" ALTER COLUMN "streak" SET NOT NULL;ALTER TABLE "friends" ALTER COLUMN "streak" SET DEFAULT 0;ALTER TABLE "friends" ALTER COLUMN "streak" TYPE INTEGER;
+backend-1   | Executing (default): ALTER TABLE "friends" ALTER COLUMN "unlockStreakDate" SET NOT NULL;ALTER TABLE "friends" ALTER COLUMN "unlockStreakDate" SET DEFAULT '1900-01-01 00:00:00.000 +00:00';ALTER TABLE "friends" ALTER COLUMN "unlockStreakDate" TYPE TIMESTAMP WITH TIME ZONE;
+backend-1   | Executing (default): ALTER TABLE "friends" ALTER COLUMN "endStreakDate" SET NOT NULL;ALTER TABLE "friends" ALTER COLUMN "endStreakDate" SET DEFAULT '1900-01-01 00:00:00.000 +00:00';ALTER TABLE "friends" ALTER COLUMN "endStreakDate" TYPE TIMESTAMP WITH TIME ZONE;
+backend-1   | Executing (default): ALTER TABLE "friends" ALTER COLUMN "isFoF" SET NOT NULL;ALTER TABLE "friends" ALTER COLUMN "isFoF" SET DEFAULT false;ALTER TABLE "friends" ALTER COLUMN "isFoF" TYPE BOOLEAN;
+backend-1   | Executing (default): ALTER TABLE "friends" ALTER COLUMN "isRival" SET NOT NULL;ALTER TABLE "friends" ALTER COLUMN "isRival" SET DEFAULT false;ALTER TABLE "friends" ALTER COLUMN "isRival" TYPE BOOLEAN;
+backend-1   | Executing (default): ALTER TABLE "friends" ALTER COLUMN "isTop" SET NOT NULL;ALTER TABLE "friends" ALTER COLUMN "isTop" SET DEFAULT false;ALTER TABLE "friends" ALTER COLUMN "isTop" TYPE BOOLEAN;
+backend-1   | Executing (default): ALTER TABLE "friends" ALTER COLUMN "isBest" SET NOT NULL;ALTER TABLE "friends" ALTER COLUMN "isBest" SET DEFAULT false;ALTER TABLE "friends" ALTER COLUMN "isBest" TYPE BOOLEAN;
+backend-1   | Executing (default): ALTER TABLE "friends" ALTER COLUMN "isMutualBest" SET NOT NULL;ALTER TABLE "friends" ALTER COLUMN "isMutualBest" SET DEFAULT false;ALTER TABLE "friends" ALTER COLUMN "isMutualBest" TYPE BOOLEAN;
+backend-1   | Executing (default): SELECT i.relname AS name, ix.indisprimary AS primary, ix.indisunique AS unique, ix.indkey AS indkey, array_agg(a.attnum) as column_indexes, array_agg(a.attname) AS column_names, pg_get_indexdef(ix.indexrelid) AS definition FROM pg_class t, pg_class i, pg_index ix, pg_attribute a WHERE t.oid = ix.indrelid AND i.oid = ix.indexrelid AND a.attrelid = t.oid AND t.relkind = 'r' and t.relname = 'friends' GROUP BY i.relname, ix.indexrelid, ix.indisprimary, ix.indisunique, ix.indkey ORDER BY i.relname;
+backend-1   | Executing (default): SELECT table_name FROM information_schema.tables WHERE table_schema = 'public' AND table_name = 'conversation'
+backend-1   | Executing (default): SELECT pk.constraint_type as "Constraint",c.column_name as "Field", c.column_default as "Default",c.is_nullable as "Null", (CASE WHEN c.udt_name = 'hstore' THEN c.udt_name ELSE c.data_type END) || (CASE WHEN c.character_maximum_length IS NOT NULL THEN '(' || c.character_maximum_length || ')' ELSE '' END) as "Type", (SELECT array_agg(e.enumlabel) FROM pg_catalog.pg_type t JOIN pg_catalog.pg_enum e ON t.oid=e.enumtypid WHERE t.typname=c.udt_name) AS "special", (SELECT pgd.description FROM pg_catalog.pg_statio_all_tables AS st INNER JOIN pg_catalog.pg_description pgd on (pgd.objoid=st.relid) WHERE c.ordinal_position=pgd.objsubid AND c.table_name=st.relname) AS "Comment" FROM information_schema.columns c LEFT JOIN (SELECT tc.table_schema, tc.table_name, cu.column_name, tc.constraint_type FROM information_schema.TABLE_CONSTRAINTS tc JOIN information_schema.KEY_COLUMN_USAGE  cu ON tc.table_schema=cu.table_schema and tc.table_name=cu.table_name and tc.constraint_name=cu.constraint_name and tc.constraint_type='PRIMARY KEY') pk ON pk.table_schema=c.table_schema AND pk.table_name=c.table_name AND pk.column_name=c.column_name WHERE c.table_name = 'conversation' AND c.table_schema = 'public'
+backend-1   | Executing (default): SELECT DISTINCT tc.constraint_name as constraint_name, tc.constraint_schema as constraint_schema, tc.constraint_catalog as constraint_catalog, tc.table_name as table_name,tc.table_schema as table_schema,tc.table_catalog as table_catalog,tc.initially_deferred as initially_deferred,tc.is_deferrable as is_deferrable,kcu.column_name as column_name,ccu.table_schema  AS referenced_table_schema,ccu.table_catalog  AS referenced_table_catalog,ccu.table_name  AS referenced_table_name,ccu.column_name AS referenced_column_name FROM information_schema.table_constraints AS tc JOIN information_schema.key_column_usage AS kcu ON tc.constraint_name = kcu.constraint_name JOIN information_schema.constraint_column_usage AS ccu ON ccu.constraint_name = tc.constraint_name WHERE constraint_type = 'FOREIGN KEY' AND tc.table_name = 'conversation' AND tc.table_catalog = 'chappdb'
+backend-1   | Executing (default): ALTER TABLE "conversation" DROP CONSTRAINT "conversation_receiverID_fkey"
+backend-1   | Executing (default): ALTER TABLE "conversation" DROP CONSTRAINT "conversation_senderID_fkey"
+backend-1   | Executing (default): ALTER TABLE "conversation" ALTER COLUMN "senderID" SET NOT NULL;ALTER TABLE "conversation"  ADD FOREIGN KEY ("senderID") REFERENCES "users" ("id") ON DELETE CASCADE ON UPDATE CASCADE;
+backend-1   | Executing (default): ALTER TABLE "conversation" ALTER COLUMN "receiverID" SET NOT NULL;ALTER TABLE "conversation"  ADD FOREIGN KEY ("receiverID") REFERENCES "users" ("id") ON DELETE CASCADE ON UPDATE CASCADE;
+backend-1   | Executing (default): ALTER TABLE "conversation" ALTER COLUMN "message" SET NOT NULL;ALTER TABLE "conversation" ALTER COLUMN "message" DROP DEFAULT;ALTER TABLE "conversation" ALTER COLUMN "message" TYPE TEXT;
+backend-1   | Executing (default): ALTER TABLE "conversation" ALTER COLUMN "createdAt" SET NOT NULL;ALTER TABLE "conversation" ALTER COLUMN "createdAt" DROP DEFAULT;ALTER TABLE "conversation" ALTER COLUMN "createdAt" TYPE TIMESTAMP WITH TIME ZONE;
+backend-1   | Executing (default): ALTER TABLE "conversation" ALTER COLUMN "updatedAt" SET NOT NULL;ALTER TABLE "conversation" ALTER COLUMN "updatedAt" DROP DEFAULT;ALTER TABLE "conversation" ALTER COLUMN "updatedAt" TYPE TIMESTAMP WITH TIME ZONE;
+backend-1   | Executing (default): SELECT i.relname AS name, ix.indisprimary AS primary, ix.indisunique AS unique, ix.indkey AS indkey, array_agg(a.attnum) as column_indexes, array_agg(a.attname) AS column_names, pg_get_indexdef(ix.indexrelid) AS definition FROM pg_class t, pg_class i, pg_index ix, pg_attribute a WHERE t.oid = ix.indrelid AND i.oid = ix.indexrelid AND a.attrelid = t.oid AND t.relkind = 'r' and t.relname = 'conversation' GROUP BY i.relname, ix.indexrelid, ix.indisprimary, ix.indisunique, ix.indkey ORDER BY i.relname;
+backend-1   | Successfully Synced DB
+backend-1   | 
+backend-1   | Sequelize CLI [Node: 20.19.5, CLI: 6.6.3, ORM: 6.37.7]
+backend-1   | 
+backend-1   | migrations folder at "/app/migrations" already exists.
+backend-1   | New migration was created at /app/migrations/20251025044842-enable-pg-trgm.js .
+backend-1   | 
+backend-1   | Sequelize CLI [Node: 20.19.5, CLI: 6.6.3, ORM: 6.37.7]
+backend-1   | 
+backend-1   | [dotenv@17.2.3] injecting env (0) from .env -- tip: 🔄 add secrets lifecycle management: https://dotenvx.com/ops
+backend-1   | DB_USER  postgres
+backend-1   | DB_PASS  ALandon36
+backend-1   | DB_NAME  chappdb
+backend-1   | DB_HOST  db
+backend-1   | Loaded configuration file "config/config.js".
+backend-1   | Using environment "development".
+backend-1   | == 20251025044842-enable-pg-trgm: migrating =======
+backend-1   | == 20251025044842-enable-pg-trgm: migrated (0.010s)
+backend-1   | 
+backend-1   | 
+backend-1   | > src@1.0.0 start
+backend-1   | > ts-node index.ts
+backend-1   | 
+backend-1   | [dotenv@17.2.3] injecting env (0) from .env -- tip: 🔐 prevent committing .env to code: https://dotenvx.com/precommit
+backend-1   | Before Init
+backend-1   | Activated User Schema
+backend-1   | Before Init
+backend-1   | Activated Friend Schema
+backend-1   | Before Init
+backend-1   | Activated Conversation Schema
+backend-1   | Connected Friends and Users
+backend-1   | Running Chapp on port 3000
+backend-1   | ✅ Connected to Redis: PONG
+backend-1   | Executing (default): SELECT 1+1 AS result
+backend-1   | Connected to DB
+Gracefully Stopping... press Ctrl+C again to force
+[K Container chapp-nginx-1  [32mStopping[0m
+[K Container chapp-nginx-1  [32mStopped[0m
+[K Container chapp-frontend-1  [32mStopping[0m
+[K Container chapp-backend-1  [32mStopping[0m
+[K Container chapp-frontend-1  [32mStopped[0m
+[K Container chapp-backend-1  [32mStopped[0m
+[K Container chapp-redis-1  [32mStopping[0m
+[K Container chapp-db-1  [32mStopping[0m
+[K Container chapp-redis-1  [32mStopped[0m
+[K Container chapp-db-1  [32mStopped[0m
