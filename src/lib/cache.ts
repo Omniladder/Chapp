@@ -5,8 +5,17 @@ export const redis = new Redis({
     port: Number(process.env.REDIS_PORT!)
 });
 
+redis.ping()
+  .then(res => {
+    console.log("✅ Connected to Redis:", res); // should print "PONG"
+  })
+  .catch(err => {
+    console.error("❌ Redis connection failed:", err);
+  });
+
+
 export function createKey(...data: (string | undefined | null)[]): string{
-    return data.filter(Boolean).join("\x1E")
+    return data.filter(Boolean).join("|::|")
 }
 
 

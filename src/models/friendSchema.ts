@@ -4,6 +4,7 @@ import { User } from "./userSchema";
 
 
 export class Friend extends Model{
+    public id!: number;
     public friendID1!: number;
     public friendID2!: number;
     public score!: number;
@@ -20,10 +21,15 @@ export class Friend extends Model{
 
 console.log("Before Init");
 Friend.init({
-    friendID1: {
+    id: {
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
+        autoIncrement: true
+    },
+    friendID1: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
         references: { model: 'users', key: 'id' },
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE',
@@ -31,7 +37,6 @@ Friend.init({
     friendID2: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        primaryKey: true,
         references: { model: 'users', key: 'id' },
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE',
@@ -92,7 +97,6 @@ Friend.init({
     modelName: 'Friend',
     tableName: 'friends',
     timestamps: false,
-    indexes: [{unique: true, fields: ['friendID1', 'friendID2', 'missedMessages']}],
 });
 
 console.log("Activated Friend Schema");
