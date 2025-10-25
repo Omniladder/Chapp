@@ -29,7 +29,6 @@ export async function queryPeople(req: Request){
     const CACHED_USER_DATA = await redis.get(createKey("queryPeople", String(req.session.userID!), queryData.searchTerm))
     if(CACHED_USER_DATA) {
         const CACHED_USERS: User[] = JSON.parse(CACHED_USER_DATA)
-        console.log("Cached Query People Data: ", CACHED_USERS)
         return {success: true, data: CACHED_USERS, message: 'Queried Cached', code: 1000};
     }
 
@@ -152,7 +151,6 @@ async function getListofFriends(USER_ID: number): Promise<Friend[]> {
         return USER_DATA;
     }
 
-    console.log("Collecting List of Friends");
     const LIST_OF_FRIENDS = await Friend.findAll({
         where:{
             friendID1: USER_ID
@@ -165,7 +163,6 @@ async function getListofFriends(USER_ID: number): Promise<Friend[]> {
         attributes: ['missedMessages', 'streak', 'isFoF', 'isRival', 'isTop', 'isBest', 'isMutualBest', 'score'],
         order: [['score', 'DESC']]
     });
-    console.log("Collected Friend List");
 
     await redis.set(createKey("getListofFriends", String(USER_ID)), JSON.stringify(LIST_OF_FRIENDS));
     return LIST_OF_FRIENDS;
