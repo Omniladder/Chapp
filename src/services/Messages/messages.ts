@@ -17,7 +17,14 @@ export async function sendMessage(req: any): Promise<any> {
         return {success: false, message: "Failed to Parse Schema", code: 1001};
     }
 
+
     let userData = schemaTest.data;
+
+
+    const NUM_RECENT_MESSAGES = Number(await redis.get(createKey("numMessages", req.session.userID)))
+    if( 50 <= NUM_RECENT_MESSAGES){
+        return {success: false, message: "TOO MANY MESSAGES SENT TOO FAST", code: 1002};
+    }
 
     try{
         await Conversation.create({
@@ -81,7 +88,8 @@ export async function sendMessage(req: any): Promise<any> {
     }
 
     await redis.del(createKey("getMessages", req.session.userID, req.session.receiverID))
-    
+    await redis.incr(createKey("numMessages", req.session.userID))
+    await redis.expire(createKey("numMessages", req.session.userID), 60) // 5 Message a Miniute Limit
 
     return {success: true, message: "Received Message", code: 1000};
 }
