@@ -42,10 +42,12 @@
 - OAuth with Github and Google Support
 - Redis Based Caching
 - Complete Modular and Containerized Infrastructure
+- Rate Limited Messaging to Minimize Spamming
 - Early K8s and Scalability Support
 - Colorful & Easy to Read User Interface
 - Range of Hosting Options (Native, Docker Compose, K8s)
 - Github Actions CI/CD Testing
+
 
 # Technologies
 
@@ -110,7 +112,6 @@ WIP
 # Future Goals
 
 - Terraform based Cloud Deployment
-- Implementing Rate limiting for Security
 - Web Socket Based Messaging System
 - Accurate and Easy to Use Setup Guide
 
