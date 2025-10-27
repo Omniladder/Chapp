@@ -127,6 +127,9 @@ spec:
             cpu: "800m"
           limits:
             cpu: "1"
+        env:
+        - name: REDIS_HOST
+          value: "redis"
 ---
 apiVersion: v1
 kind: Service
@@ -175,4 +178,48 @@ spec:
               name: env-file
         ports:
         - containerPort: 5432
-
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis
+  labels:
+    app: chapp
+    tier: db 
+    role: redis
+spec:
+  ports:
+  - port: 6379
+    targetPort: 6379
+  selector:
+    app: chapp
+    tier: db
+    role: redis
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis
+  labels:
+    app: chapp
+    tier: db
+    role: redis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: chapp
+      tier: db
+      role: redis
+  template:
+    metadata:
+      labels:
+        app: chapp
+        tier: db 
+        role: redis
+    spec:
+      containers:
+      - name: redis-db
+        image: redis:8.2
+        ports:
+        - containerPort: 6379
