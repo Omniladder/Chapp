@@ -3,10 +3,11 @@ services:
     build: ./src
     restart: always
     env_file:
-      - .env
+      - ./.env
     environment:
       POSTGRES_HOST: db
       REDIS_HOST: redis
+      REDIS_PORT: 6379
     depends_on:
       - db
       - redis
@@ -22,7 +23,7 @@ services:
     restart: always
     hostname: db
     env_file:
-      - .env
+      - ./.env
     volumes:
       - db_data:/var/lib/postgresql/data
 

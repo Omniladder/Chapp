@@ -1,2 +1,3 @@
 cp ./.env src/.env
-sudo docker compose up -d
+
+sudo docker compose -f docker-compose.yml up -d
