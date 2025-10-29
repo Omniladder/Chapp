@@ -11,5 +11,5 @@ sudo docker build -t chapp-backend:latest ./src
 minikube image load chapp-frontend:latest
 minikube image load chapp-backend:latest
 
-kubectl apply -f ./k8sFiles/k8sChapp.yml
+kubectl apply -f ./k8sChapp.yml
 

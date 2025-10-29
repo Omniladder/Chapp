@@ -46,6 +46,12 @@ app.listen(port, '0.0.0.0', () => {
   console.log(`Running Chapp on port ${port}`);
 });
 
+
+// Test used for Kubernetes to see if Container is up
+app.get('/health', (req: Request, res: Response) => {
+    res.status(200).send("Healthy Container :D");
+})
+
 app.post('/api/signup', async (req: Request, res: Response) => {
     console.log("Received Sign Up");
     let output = await addUser(req);

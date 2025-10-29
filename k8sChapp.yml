@@ -69,13 +69,6 @@ spec:
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 80
-        resources:
-          requests:
-            cpu: "100m"
-            memory: "128Mi"
-          limits:
-            cpu: "200m"
-            memory: "256Mi"
 ---
 apiVersion: v1
 kind: Service
@@ -124,14 +117,22 @@ spec:
         - containerPort: 3000
         resources:
           requests:
-            cpu: "800m"
+            cpu: "10m"
           limits:
-            cpu: "1"
+            cpu: "500m"
         env:
         - name: REDIS_HOST
           value: "redis"
         - name: REDIS_PORT
           value: "6379"
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 3000
+          initialDelaySeconds: 60
+          periodSeconds: 10
+          timeoutSeconds: 2
+          failureThreshold: 10
 ---
 apiVersion: v1
 kind: Service
@@ -225,3 +226,6 @@ spec:
         image: redis:8.2
         ports:
         - containerPort: 6379
+
+
+
