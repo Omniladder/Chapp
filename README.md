@@ -112,7 +112,6 @@ WIP
 # Future Goals
 
 - Terraform based Cloud Deployment
-- Improve Kubernetes Scalability
 - Stop Container Startup DB Migration
 - Web Socket Based Messaging System
 - Accurate and Easy to Use Setup Guide
