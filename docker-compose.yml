@@ -1,4 +1,11 @@
 services:
+
+  migrate:
+    build: ./src
+    command: ./sync.sh
+    depends_on:
+      - db
+
   backend:
     build: ./src
     restart: always
@@ -9,8 +16,8 @@ services:
       REDIS_HOST: redis
       REDIS_PORT: 6379
     depends_on:
-      - db
       - redis
+      - migrate
 
   frontend:
     build: ./frontend
