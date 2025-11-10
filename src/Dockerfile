@@ -17,8 +17,9 @@ ENV PORT=3000
 # Take Args for buildings
 ENV POSTGRES_HOST=db
 
+RUN npx tsc
 
 
 # Runs Program
-CMD [ "./startup.sh"]
+CMD [ "node", "index.js"]
 

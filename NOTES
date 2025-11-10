@@ -1,0 +1,9 @@
+# AWS Services
+- [X] Postgres -> RDS
+- [X] Redis -> Elastic Cache
+- [ ] Node -> Lambda
+- [ ] Angular -> S3
+- [ ] Nginx -> Load Balancer
+
+
+
