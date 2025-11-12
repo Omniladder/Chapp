@@ -12,7 +12,6 @@
   "dependencies": {
     "@types/express": "^5.0.3",
     "bcrypt": "^6.0.0",
-    "bcrypt-ts": "^7.1.0",
     "crypto": "^1.0.1",
     "dotenv": "^17.2.1",
     "express": "^5.1.0",
@@ -28,6 +27,7 @@
     "zod": "^4.0.9"
   },
   "devDependencies": {
+    "@types/bcrypt": "^6.0.0",
     "@types/express-session": "^1.18.2",
     "express-sessions": "^1.0.6",
     "sequelize-cli": "^6.6.3",

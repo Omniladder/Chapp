@@ -1,4 +1,4 @@
-FROM node:24 AS backend-server
+FROM public.ecr.aws/lambda/nodejs:20 AS backend-server
 
 WORKDIR /app
 
@@ -21,5 +21,5 @@ RUN npx tsc
 
 
 # Runs Program
-CMD [ "node", "index.js"]
+CMD ["/app/serverless.handler"]
 

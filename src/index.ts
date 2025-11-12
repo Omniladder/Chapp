@@ -40,11 +40,16 @@ async function testServer() {
     }
 }
 
-
+/*
 app.listen(port, '0.0.0.0', () => {
   console.log(`Running Chapp on port ${port}`);
 });
+*/
 
+app.get("/api/test", (req, res) => {
+    console.log("Received test");
+    res.send("Lambda Works")
+});
 
 // Test used for Kubernetes to see if Container is up
 app.get('/health', (req: Request, res: Response) => {
@@ -179,3 +184,5 @@ app.get("/api/getFriends", async (req, res) => {
 })
 
 
+
+export default app;

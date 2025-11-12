@@ -1,6 +1,7 @@
 import { Request } from "express";
 
-import { compareSync, genSaltSync, hashSync } from "bcrypt-ts";
+import bcrypt from "bcrypt";
+const { compareSync, genSaltSync, hashSync } = bcrypt;
 
 // Request Validation Schemas
 import signupSchema from "./signupSchema";
