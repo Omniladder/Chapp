@@ -36,12 +36,19 @@ export async function addUser(req: Request){
     console.log("Successfully Parsed Incoming Request");
     const userData = schemaTest.data;
 
+    console.log("User Data: ", userData);
+
     //Check if User already in Database
+    try {
     const dupUser = await User.findOne({ where: {"username": userData.username}}); 
     
     if(dupUser){
         console.log("Username Already In Use");
         return {success: false, message: "Username Already In Use. Please try different Username.", code: 1002};
+    }
+    }
+    catch {
+        console.log("No Users")
     }
 
 
@@ -56,6 +63,8 @@ export async function addUser(req: Request){
         console.error("Hashing Failed Hash & Password Dont align");
         return {success: false, message: "Hashing Failed. Please Retry.", code: 1003};
     }
+
+    console.log("Final User Data: ", userData)
 
     //Save User Data
     await User.create({
