@@ -113,8 +113,12 @@ WIP
 
 - Terraform based Cloud Deployment
 - Stop Container Startup DB Migration
+- Microservice Refactor
 - Web Socket Based Messaging System
 - Accurate and Easy to Use Setup Guide
+- Functional Multi platform setup. (Docker Compose, AWS Cloud, Azure, GCP)
+- Kubernetes support
+- E2E Encrypted Messaging
 
 # License
 
