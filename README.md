@@ -118,6 +118,8 @@ WIP
 - Accurate and Easy to Use Setup Guide
 - Functional Multi platform setup. (Docker Compose, AWS Cloud, Azure, GCP)
 - Kubernetes support
+- Refactored and cleaner codebase
+- Improved code documentation and readability
 - E2E Encrypted Messaging
 
 # License
