@@ -117,6 +117,7 @@ WIP
 - Web Socket Based Messaging System
 - Accurate and Easy to Use Setup Guide
 - Functional Multi platform setup. (Docker Compose, AWS Cloud, Azure, GCP, k8s)
+- CI/CD Security testing and remediation (Perhaps moving to gitlab)
 - Kubernetes support
 - Refactored and cleaner codebase
 - Improved code documentation and readability
